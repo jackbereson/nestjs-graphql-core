@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ather-import",
+  "private_key_id": "5188ff837cbee5e8d3544125956e66bc891572c6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCxViqrbv0hvQAq\nRsC0k/eMVXrfHvxFBWce49qJZ44unNgCAQkhBUojHO8u+CNFSQvx+mSPZKHa6lIZ\niS5aLC88BWNIyz122VSKKfxHmN4BmYidS5/i0z3cKPjBTyfCd6YKctAlabR656CY\nApgqgThCcGU4INzGAz2Ra5eXg3wG0REahgNxPrN/0IjxgBWJTLu1rg2fXLvtWVST\nP1XsaRoV7w0jAWHcUueAwYMjrjZYqg/w3h9R9Ybrh7Tv2iGzTnoolpnlVVImS0OG\niWk6kvWlI7XFodkTmAgzkrzc9j6ZDtojImsKn0kXK2jV6xS4pJ0/9ZQs4mT54VUN\n0NMMgbnFAgMBAAECggEABDbH93WWY6GEyicO7TuW5lQhrKulKFQN30NgLg5dPT5S\nOQ9NPZD38ghTUV++zCawN0/RPpcQQY4lOqDH49yo7VmIwnIR7oEQ6+I+McqwJoQ/\netK75JKgewV+ORm9wsvqZip+8mSl+psGdeuZ3L4KrYl+M5c+/SBBQPNi5swju7Bc\noIbNssc1VWOLBx2LVKLQDVPbZ6P4pPXS6DLUgkq+dt1WmwdS6BC0JDLGW17lSzcG\nI9zdPzgGXHsi/6YF0RguWhiUAR9IvleJpJtRF/OIBBHEjHnMfGNYoazNUM6paNyJ\n5Z+cccUhekoLdXktzASc9sXIcyBUAi8DMMu+De7xAQKBgQDquoT9OeRqPO+4lHJw\nZqbkRtXm3kfbfwBG1Ouq9NF5GtiQQtoKyJlCUtvW81gQ0HtoEU9jkmr3BKcJ+4DY\nhSA+nQcHwd6jDkBfSxs2Yrlj5ZjS7C0fxqESpFRlVyxuq4TgC5I4lSMBRUwxXKtA\nV0dIPG+Yo6inanYprePaDwzo0wKBgQDBaDUKxzQhfemDNtKA1Oz2GEiwQvACCAY5\n53dHDoJ2olppFtmm9VLRFfc5pPPYeQG4fqAV0RXrN0n1dJ6GQcwhvwY9QZujNc32\nZnNmCC9+FntxKmKX2GO5HiGTiDP35YwnU17C47E540P4bfdm0E+U5UN68r3T8R0i\no5ugmuG0BwKBgQDBC7NSO6mSghk5ecUAkjwRo/xJimgYqkOE/ZnwmLYqXpzbUE/Y\n7I+3D0REbQ/xjDTiKtJa9tFH5KioOhMGf748IJLmm1hKS+8/MBrqSJlmAi8E0T5v\nUsGn/kR2sBIX1rJKPNn99RG7+s0mD6u8F8vFKgcxxu9u+MzDjILHFPeuBwKBgQCj\nWZgzGjx1bRskr9Dq7uuUjr4V4PNFQ/G+Rjj/0slt2YHy8FG0Kc9guOSt0xwA4XMK\nmCgtRQL2PyRAI9cgHcKDXguvARKqrm7ehXlB2/gAzoxD8ECFb0YKu+Av8wGxhjbx\noACRKi4tbj2iPX6PX7FXWKu90/dwYlzxPK3c3/NxUQKBgQDQcyzKoSvc2viJnn7a\neWpD1H8eOsoNOBFF3Rl8zYsyU81IYiJOuDKzln7s5GbDNl5rkq1DWXngHWhbSe6b\ngEq7gWcTpZGEFlIkZw2dm7+PLzuIya1/7DE61wWWFsX1/G06WmHt6MvkGAejbqwi\nawNyvZY2DvXKhoabZGgTSnb3FA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "read-sheet@ather-import.iam.gserviceaccount.com",
+  "client_id": "107974373877912787161",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/read-sheet%40ather-import.iam.gserviceaccount.com"
+}

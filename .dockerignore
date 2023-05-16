@@ -1,0 +1,27 @@
+# Git
+*/**/.git
+*/**/.gitignore
+*/**/.gitattributes
+
+# Docker
+.dockerignore
+
+# Env files
+.env*
+
+# node_modules
+node_modules
+
+# Logs
+*/**/*.log
+
+# Tests
+tests
+jest.config.js
+
+# Linters
+.eslintrc
+.eslintignore
+
+# Readme
+README.md
