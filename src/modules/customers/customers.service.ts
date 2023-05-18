@@ -1,22 +1,16 @@
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateCustomerInput } from './dto/create-customer.input';
-import { UpdateCustomerInput } from './dto/update-customer.input';
-import { ICustomer } from './entities/customer.entity';
-import { CrudService } from 'src/base/crud.base';
+import { Customer, ICustomer } from './entities/customer.entity';
+import { CrudService } from '../../base/crud.base';
+import { CustomerModel } from './customer.model';
 
 @Injectable()
-export class CustomersService extends CrudService {
+export class CustomersService extends CrudService<Model<ICustomer>> {
 
   constructor(
     @Inject('CUSTOMER_MODEL')
     private customerModel: Model<ICustomer>
   ) {
     super(customerModel);
-  }
-
-
-  callSample() {
-
   }
 }

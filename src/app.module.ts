@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -9,8 +9,8 @@ import * as dotenv from 'dotenv';
 import { DatabaseModule } from './database.module';
 import { CustomersModule } from './modules/customers/customers.module';
 import { RolesModule } from './modules/guards/roles.module';
-import { LoggingPlugin } from './plugins/logging.plugin';
 import { JwtModule } from '@nestjs/jwt';
+import { GraphQLLoggingMiddleware } from './middleware/logger.middleware';
 
 
 dotenv.config();
@@ -27,7 +27,7 @@ dotenv.config();
     JwtModule.register({
       global: true,
       secret: process.env.SECRET,
-      signOptions: { expiresIn: '2d' },
+      signOptions: { expiresIn: '100d' },
     })
   ],
   controllers: [
@@ -37,7 +37,10 @@ dotenv.config();
     AppService,
     RolesModule,
     ...CustomersModule,
-    // LoggingPlugin,
   ],
 })
-export class AppModule { }
+export class AppModule { 
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(GraphQLLoggingMiddleware).forRoutes('graphql');
+  }
+}

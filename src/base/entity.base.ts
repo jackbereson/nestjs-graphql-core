@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql"
+import { Field, ID, Int, ObjectType } from "@nestjs/graphql"
 
 @ObjectType()
 export class Pagination {
@@ -19,12 +19,12 @@ export class Pagination {
 
 @ObjectType()
 export class BaseSchema {
-    @Field(() => String, { description: 'Address of user' })
+    @Field(() => ID, { description: 'Id' })
     id?: any;
 
-    @Field(() => Date, { description: 'Address of user' })
+    @Field(() => Date, { description: 'Created At' })
     createdAt?: Date;
 
-    @Field(() => Date, { description: 'Address of user' })
+    @Field(() => Date, { description: 'Updated At' })
     updatedAt?: Date;
 };

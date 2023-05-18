@@ -1,5 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { GraphQLJSON, GraphQLJSONObject } from 'graphql-type-json';
+import { GraphQLJSONObject } from 'graphql-type-json';
 
 @InputType()
 export class QueryGetListInput {

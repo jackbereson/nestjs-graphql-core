@@ -9,8 +9,8 @@ export interface IQueryOptions {}
 
 
 @Injectable()
-export abstract class CrudService extends BaseService {
-  model: Model<Document, {}>;
+export abstract class CrudService<M extends Model<Document, {}>> extends BaseService {
+  model: M;
 
   constructor(model) {
     super();

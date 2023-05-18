@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { Customer } from '../entities/customer.entity';
-import { BaseDocument, ModelHook } from 'src/base/model.base';
+import { ROLES } from '../../decorators/roles.decorator';
 const Schema = mongoose.Schema;
 
 export enum CustomerStatus {
@@ -28,7 +27,7 @@ export const customerWalletTypeData = [
     "BITKEEP",
 ];
 
-export const CustomerSchema = new Schema(
+export const CustomerModel = new Schema(
     {
         username: { type: String },
         address: { type: String }, // dia chi vi
@@ -41,23 +40,19 @@ export const CustomerSchema = new Schema(
         activedAt: { type: Date },
         referral: { type: String },
         shortUrl: { type: String },
-        role: { type: String },
+        role: { type: String, default: ROLES.CUSTOMER },
         nonce: { type: String },
         addressIp: { type: String },
 
         bannerUrl: { type: String, default: "/images/customer/banner.png" },
         avatarUrl: { type: String, default: "/images/customer/avatar.png" },
 
-        instagram: { type: String },
-        website: { type: String },
-
-        referralCustomerId: { type: Schema.Types.ObjectId, ref: "Customer" },
         status: { type: String, enum: CustomerStatus, default: CustomerStatus.ACTIVE },
     },
     { timestamps: true }
 );
 
-CustomerSchema.index(
+CustomerModel.index(
     { address: "text", addressIp: "text" },
     { weights: { address: 2, addressIp: 3 } }
 );
@@ -65,7 +60,7 @@ CustomerSchema.index(
 export const customersProviders = [
     {
         provide: 'CUSTOMER_MODEL',
-        useFactory: (connection: mongoose.Connection) => connection.model('Customer', CustomerSchema),
+        useFactory: (connection: mongoose.Connection) => connection.model('Customer', CustomerModel),
         inject: ['DATABASE_CONNECTION'],
     },
 ];

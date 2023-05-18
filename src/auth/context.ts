@@ -1,13 +1,9 @@
 import { Request } from "express";
 import { TokenExpiredError } from "jsonwebtoken";
 import _, { get } from "lodash";
-
-
-import { TokenHelper } from "../helpers/token.helper";
+import { TokenHelper } from "./jwt.auth";
 import { ROLES } from "../decorators/roles.decorator";
-import { AuthHelper } from "./auth.helper";
-import { JwtService } from "@nestjs/jwt";
-import { Injectable } from "@nestjs/common";
+import { AuthHelper } from "./auth";
 
 export type TokenData = {
   role: string;
@@ -29,7 +25,6 @@ export type SignedRequestPayload = {
  * * 💊💊💊 get all header params
  */
 
-@Injectable()
 export class Context {
   req: Request;
   isAuth = false;
@@ -42,9 +37,9 @@ export class Context {
   referralToken: string; // referral token
   sigToken: string;// signnonce token
 
-  constructor(params: { req?: Request; connection?: any }, private readonly jwtService?: JwtService) {
+  constructor(params: { req?: Request; connection?: any }) {
     this.req = params.req;
-    this.parseFakeToken(params);
+    this.parseToken(params);
     this.getSigToken(params);
   }
 
@@ -78,13 +73,11 @@ export class Context {
     // console.log('jwt', this.jwtService)
     try {
       const { req, connection } = params;
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzJiMTdhOGRhMzFlNTM2ZGJhNjg5YjMiLCJzdGF0dXMiOiJBQ1RJVkUiLCJpYXQiOjE2ODQyNTQ3MjIsImV4cCI6MTY4NDM0MTEyMn0.gjeaIpgDfZ6M9M5ofwoB3ruJAtjwhbE9qfbK1rJ6Q_o";
-      const tokenHelper = new TokenHelper(this.jwtService)
-
+      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzJiMTdhOGRhMzFlNTM2ZGJhNjg5YjMiLCJzdGF0dXMiOiJBQ1RJVkUiLCJpYXQiOjE2ODQ0MjM1NTYsImV4cCI6MTY4NDUwOTk1Nn0.rRijM3aa2Qq2UjGpuwbSWMGnaUcWjrZl-6ej6c42UtE";
       if (token) {
-        const decodedToken: any = await tokenHelper.decodeToken(token);
+        const decodedToken: any = await TokenHelper.decodeToken(token);
         this.isAuth = true;
-        console.log('decodedToken', decodedToken)
+        // console.log('decodedToken', decodedToken)
         this.tokenData = decodedToken;
       }
 
@@ -106,8 +99,6 @@ export class Context {
       const { req, connection } = params;
       let token = null;
 
-      const tokenHelper = new TokenHelper(this.jwtService)
-
       if (req) {
         this.req = req;
         token = _.get(req, "headers.x-token") || _.get(req, "query.x-token");
@@ -118,13 +109,13 @@ export class Context {
       // }
 
       if (token) {
-        const decodedToken: any = tokenHelper.decodeToken(token);
+        const decodedToken: any = TokenHelper.decodeToken(token);
         this.isAuth = true;
         this.tokenData = decodedToken;
       }
 
     } catch (err) {
-      console.log('err', err);
+      // console.log('err', err);
       if (err instanceof TokenExpiredError) {
         this.isTokenExpired = true;
       }
@@ -133,8 +124,6 @@ export class Context {
       return this;
     }
   }
-
-
 
   auth(roles: string[]) {
     AuthHelper.acceptRoles(this, roles);

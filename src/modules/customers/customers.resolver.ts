@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, Extensions, Field, GqlExecutionContext } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
 import { CustomersService } from './customers.service';
 import { Customer, CustomerPageData } from './entities/customer.entity';
 import { CreateCustomerInput } from './dto/create-customer.input';
@@ -6,45 +6,39 @@ import { UpdateCustomerInput } from './dto/update-customer.input';
 import { QueryGetListInput } from '../../base/input.base';
 import { ROLES, Roles } from '../../decorators/roles.decorator';
 import { Ctx } from '../../decorators/ctx.decorator';
-import { JwtService } from '@nestjs/jwt';
 import { Context } from '../../auth/context';
-import { Headers, Ip } from '@nestjs/common';
 
 @Resolver(() => Customer)
 export class CustomersResolver {
-  constructor(private readonly customersService: CustomersService, private jwtService?: JwtService) { }
-
-  @Mutation(() => Customer)
-  createCustomer(@Args('createCustomerInput') createCustomerInput: CreateCustomerInput) {
-    return this.customersService.create(createCustomerInput);
-  }
-
+  constructor(private readonly customersService: CustomersService) { }
 
   @Query(() => CustomerPageData)
-  // @Roles(ROLES.CUSTOMER)
-  async findAll(@Args('q') queryGetListInput: QueryGetListInput, @Ctx() context) {
-    // console.log('queryGetListInput', queryGetListInput)
-    new Context(context.req, this.jwtService).auth([ROLES.ADMIN])
-    return this.customersService.fetch(queryGetListInput);
+  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+    context.auth([ROLES.ADMIN])
+    return this.customersService.fetch(args);
   }
 
   @Query(() => Customer, { name: 'customer' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+    context.auth([ROLES.ADMIN])
     return this.customersService.findOne(id);
   }
 
   @Mutation(() => Customer)
-  updateCustomer(@Args('updateCustomerInput') updateCustomerInput: UpdateCustomerInput) {
-    // return this.customersService.update(updateCustomerInput.id, updateCustomerInput);
+  createCustomer(@Args('createCustomerInput') args: CreateCustomerInput, @Ctx() context: Context) {
+    context.auth([ROLES.ADMIN])
+    return this.customersService.create(args);
   }
 
   @Mutation(() => Customer)
-  removeCustomer(@Args('id', { type: () => String }) id: string) {
+  updateCustomer(@Args('updateCustomerInput') args: UpdateCustomerInput, @Ctx() context: Context) {
+    context.auth([ROLES.ADMIN])
+    return this.customersService.updateOne(args.id, args);
+  }
+
+  @Mutation(() => Customer)
+  @Roles(ROLES.ADMIN)
+  removeCustomer(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
     return this.customersService.remove(id);
-  }
-
-  @Mutation(() => Customer)
-  async callSample() {
-
   }
 }
