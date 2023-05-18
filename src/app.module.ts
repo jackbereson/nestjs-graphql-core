@@ -10,6 +10,8 @@ import { DatabaseModule } from './database.module';
 import { CustomersModule } from './modules/customers/customers.module';
 import { RolesModule } from './modules/guards/roles.module';
 import { LoggingPlugin } from './plugins/logging.plugin';
+import { JwtModule } from '@nestjs/jwt';
+
 
 dotenv.config();
 
@@ -21,6 +23,11 @@ dotenv.config();
       driver: ApolloDriver,
       autoSchemaFile: true,
       playground: true,
+    }),
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRET,
+      signOptions: { expiresIn: '2d' },
     })
   ],
   controllers: [
@@ -29,8 +36,8 @@ dotenv.config();
   providers: [
     AppService,
     RolesModule,
-    LoggingPlugin,
-    ...CustomersModule
+    ...CustomersModule,
+    // LoggingPlugin,
   ],
 })
 export class AppModule { }

@@ -1,25 +1,30 @@
-import { Resolver, Query, Mutation, Args, Int, Extensions, Field } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Extensions, Field, GqlExecutionContext } from '@nestjs/graphql';
 import { CustomersService } from './customers.service';
 import { Customer, CustomerPageData } from './entities/customer.entity';
 import { CreateCustomerInput } from './dto/create-customer.input';
 import { UpdateCustomerInput } from './dto/update-customer.input';
 import { QueryGetListInput } from '../../base/input.base';
 import { ROLES, Roles } from '../../decorators/roles.decorator';
+import { Ctx } from '../../decorators/ctx.decorator';
+import { JwtService } from '@nestjs/jwt';
+import { Context } from '../../auth/context';
+import { Headers, Ip } from '@nestjs/common';
 
 @Resolver(() => Customer)
 export class CustomersResolver {
-  constructor(private readonly customersService: CustomersService) { }
+  constructor(private readonly customersService: CustomersService, private jwtService?: JwtService) { }
 
   @Mutation(() => Customer)
   createCustomer(@Args('createCustomerInput') createCustomerInput: CreateCustomerInput) {
     return this.customersService.create(createCustomerInput);
   }
 
-  
+
   @Query(() => CustomerPageData)
-  @Roles(ROLES.ADMIN)
-  async findAll(@Args('q') queryGetListInput: QueryGetListInput) {
-    console.log('queryGetListInput', queryGetListInput)
+  // @Roles(ROLES.CUSTOMER)
+  async findAll(@Args('q') queryGetListInput: QueryGetListInput, @Ctx() context) {
+    // console.log('queryGetListInput', queryGetListInput)
+    new Context(context.req, this.jwtService).auth([ROLES.ADMIN])
     return this.customersService.fetch(queryGetListInput);
   }
 

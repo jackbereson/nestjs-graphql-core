@@ -1,5 +1,4 @@
 import { configs } from "../configs";
-import jwt from "jsonwebtoken";
 import { ROLES } from "../decorators/roles.decorator";
 
 export interface IPayloadToken {
@@ -8,18 +7,21 @@ export interface IPayloadToken {
 }
 
 export class TokenHelper {
-  constructor() { }
-
-  static generateToken(payload: IPayloadToken): string {
-    return jwt.sign(payload, process.env.SECRET, { expiresIn: "2d" });
+  jwt: any;
+  constructor(_jwt) {
+    this.jwt = _jwt
   }
 
-  static decodeToken(token: string) {
-    console.log('process.env.SECRET',process.env.SECRET)
-    return jwt.verify(token, process.env.SECRET);
+  generateToken(payload: IPayloadToken): string {
+    return this.jwt.sign(payload, process.env.SECRET, { expiresIn: "2d" });
   }
 
-  static getAdministratorToken() {
+  decodeToken(token: string) {
+    console.log('decodeToken ------- jwt', this.jwt)
+    return this.jwt.verify(token, process.env.SECRET);
+  }
+
+  getAdministratorToken() {
     return this.generateToken({
       role: ROLES.ADMIN,
     });
