@@ -40,6 +40,7 @@ export class Context {
   constructor(params: { req?: Request; connection?: any }) {
     this.req = params.req;
     this.parseToken(params);
+    // this.parseFakeToken(params);
     this.getSigToken(params);
   }
 

@@ -1,7 +1,19 @@
 import { CustomersService } from './customers.service';
 import { CustomersResolver } from './customers.resolver';
 import { customersProviders } from './customer.model';
-import { CustomerGetMesResolver } from './resolvers/customerGetMe.resolver';
+import { CustomerGetMeResolver } from './resolvers/customerGetMe.resolver';
+import { Module } from '@nestjs/common';
+import { DatabaseModule } from '../../database.module';
+import { TokenHelper } from '../../auth/jwt.auth';
 
-
-export const CustomersModule = [CustomersResolver, CustomerGetMesResolver,  CustomersService, ...customersProviders]
+@Module({
+    imports: [DatabaseModule],
+    providers: [
+      TokenHelper,
+      CustomersResolver,
+      CustomerGetMeResolver,
+      CustomersService,
+      ...customersProviders,
+    ],
+  })
+export class CustomersModule {}

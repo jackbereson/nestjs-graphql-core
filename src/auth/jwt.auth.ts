@@ -1,6 +1,7 @@
 import { JwtService } from "@nestjs/jwt";
 import { ROLES } from "../decorators/roles.decorator";
 import * as dotenv from 'dotenv';
+import { configs } from "../configs";
 
 dotenv.config();
 
@@ -10,10 +11,10 @@ export interface IPayloadToken {
 }
 
 const jwt = new JwtService({
-    global: true,
-    secret: process.env.SECRET,
-    signOptions: { expiresIn: '100d' },
-  });
+  global: true,
+  secret: configs.secretKey,
+  signOptions: { expiresIn: configs.expiresIn },
+});
 
 export class TokenHelper {
 

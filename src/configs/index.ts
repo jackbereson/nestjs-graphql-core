@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import development from "./development";
 import production from "./production";
 import testing from "./testing";

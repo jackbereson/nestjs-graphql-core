@@ -5,19 +5,14 @@ import { GraphQLModule } from '@nestjs/graphql';
 
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
-import * as dotenv from 'dotenv';
-import { DatabaseModule } from './database.module';
 import { CustomersModule } from './modules/customers/customers.module';
-import { RolesModule } from './modules/guards/roles.module';
+import { RolesProvider } from './modules/guards/roles.provider';
 import { JwtModule } from '@nestjs/jwt';
 import { GraphQLLoggingMiddleware } from './middleware/logger.middleware';
-
-
-dotenv.config();
+import { configs } from './configs';
 
 @Module({
   imports: [
-    DatabaseModule,
     ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -26,20 +21,21 @@ dotenv.config();
     }),
     JwtModule.register({
       global: true,
-      secret: process.env.SECRET,
-      signOptions: { expiresIn: '100d' },
-    })
+      secret: configs.secretKey,
+      signOptions: { expiresIn: configs.expiresIn },
+    }),
+    CustomersModule
   ],
   controllers: [
     AppController
   ],
   providers: [
     AppService,
-    RolesModule,
-    ...CustomersModule,
+    RolesProvider,
   ],
 })
-export class AppModule { 
+
+export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(GraphQLLoggingMiddleware).forRoutes('graphql');
   }

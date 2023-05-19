@@ -1,11 +1,11 @@
 import _ from "lodash";
 import { Document, Model } from "mongoose";
 import { BaseService } from "./service.base";
-import { Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { BaseErrorHelper } from "./error.base";
 import { IParseQuery } from "../helpers/parseQuery.helper";
 import { configs } from "../configs";
-export interface IQueryOptions {}
+export interface IQueryOptions { }
 
 
 @Injectable()

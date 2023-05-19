@@ -6,7 +6,7 @@ import { LogHelper } from '../helpers/log.helper';
 export class GraphQLLoggingMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const { query, variables, operationName } = req.body;
-    new Logger("Graphql").debug(LogHelper.getChalkGQL(query));
+    // new Logger("Graphql").debug(LogHelper.getChalkGQL(query));
     next();
   }
 }

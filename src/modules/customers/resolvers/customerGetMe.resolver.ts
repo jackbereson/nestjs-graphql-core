@@ -9,7 +9,7 @@ import { ErrorHelper } from '../../../helpers/error.helper';
 import { CustomerStatus } from '../customer.model';
 
 @Resolver(() => Customer)
-export class CustomerGetMesResolver {
+export class CustomerGetMeResolver {
   constructor(private readonly customersService: CustomersService) { }
 
   @Query(() => Customer)

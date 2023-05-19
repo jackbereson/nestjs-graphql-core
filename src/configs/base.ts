@@ -1,7 +1,5 @@
-import { UtilsHelper } from "../helpers/utils.helper";
 import { compact, get } from "lodash";
 const pjson = require("../../package.json");
-
 
 export default {
   name: pjson.name,
@@ -9,7 +7,7 @@ export default {
   description: pjson.description,
   port: process.env.PORT || 3000,
   basicAuth: {
-    users: { mcom: "mcom@123" },
+    users: { jackbereson: "123123" },
   },
   winston: {
     db: process.env.MONGO_LOG || "",
@@ -19,6 +17,7 @@ export default {
     limit: 10,
   },
   secretKey: process.env.SECRET || "HkQlTCrDfYWezqEp494TjDUqBhSzQSnn",
+  expiresIn: "7d",
   timezone: "Asia/Ho_Chi_Minh",
   domain: "http://localhost:" + process.env.PORT || 3000,
   firebase: JSON.parse(process.env.FIREBASE || null),
@@ -33,7 +32,7 @@ export default {
     host: process.env.CHATBOT_HOST || "https://bot-server.mcom.app",
   },
   domainName: process.env.DOMAIN_NAME || "http://localhost:5555",
-  
+
   scheduler: {
     includes: compact(get(process.env, "SCHEDULER_INCLUDES", "").split(",")),
     excludes: compact(get(process.env, "SCHEDULER_EXCLUDES", "").split(",")),
