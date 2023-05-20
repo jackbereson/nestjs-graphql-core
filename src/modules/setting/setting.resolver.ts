@@ -18,7 +18,7 @@ export class SettingResolver {
     return this.settingService.fetch(args);
   }
 
-  @Query(() => Setting, { name: 'Setting' })
+  @Query(() => Setting)
   getOneSetting(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.settingService.findById(id);

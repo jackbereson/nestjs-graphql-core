@@ -21,7 +21,7 @@ export class <%= h.inflection.camelize(name) %>Resolver {
     return this.<%= h.inflection.camelize(name, true) %>Service.fetch(args);
   }
 
-  @Query(() => <%= h.inflection.camelize(name) %>, { name: '<%= h.inflection.camelize(name) %>' })
+  @Query(() => <%= h.inflection.camelize(name) %>)
   getOne<%= h.inflection.camelize(name) %>(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.<%= h.inflection.camelize(name, true) %>Service.findOne(id);

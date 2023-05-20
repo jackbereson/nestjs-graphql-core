@@ -16,7 +16,7 @@ import { SettingModule } from './modules/setting/setting.module';
 import { CounterModule } from './modules/counter/counter.module';
 import { SettingGroupModule } from './modules/settingGroup/settingGroup.module';
 import { ActivityModule } from './modules/activity/activity.module';
-import { ScheduleModule } from '@nestjs/schedule';
+import { JobsModule } from './schedulers/jobs.module';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { ScheduleModule } from '@nestjs/schedule';
       secret: configs.secretKey,
       signOptions: { expiresIn: configs.expiresIn },
     }),
-    ScheduleModule.forRoot(),
+    JobsModule,
     ActivityModule,
     CounterModule,
     SettingGroupModule,
@@ -46,6 +46,7 @@ import { ScheduleModule } from '@nestjs/schedule';
   providers: [
     AppService,
     RolesProvider,
+    JobsModule,
   ],
 })
 

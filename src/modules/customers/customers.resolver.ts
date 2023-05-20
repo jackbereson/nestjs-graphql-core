@@ -18,7 +18,7 @@ export class CustomersResolver {
     return this.customersService.fetch(args);
   }
 
-  @Query(() => Customer, { name: 'customer' })
+  @Query(() => Customer)
   getOneCustomer(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.customersService.findById(id);

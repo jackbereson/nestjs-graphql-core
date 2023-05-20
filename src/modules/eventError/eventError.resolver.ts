@@ -18,7 +18,7 @@ export class EventErrorResolver {
     return this.eventErrorService.fetch(args);
   }
 
-  @Query(() => EventError, { name: 'EventError' })
+  @Query(() => EventError)
   getOneEventError(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.eventErrorService.findById(id);

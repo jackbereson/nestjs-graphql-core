@@ -12,13 +12,13 @@ import { Context } from '../../auth/context';
 export class CounterResolver {
   constructor(private readonly counterService: CounterService) { }
 
-  @Query(() => CounterPageData, { name: 'Counters' })
+  @Query(() => CounterPageData)
   async getAllCounters(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.counterService.fetch(args);
   }
 
-  @Query(() => Counter, { name: 'Counter' })
+  @Query(() => Counter)
   getOneCounters(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.counterService.findById(id);

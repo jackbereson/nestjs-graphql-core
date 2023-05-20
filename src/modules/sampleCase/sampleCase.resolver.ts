@@ -18,7 +18,7 @@ export class SampleCaseResolver {
     return this.sampleCaseService.fetch(args);
   }
 
-  @Query(() => SampleCase, { name: 'SampleCase' })
+  @Query(() => SampleCase)
   getOneSampleCase(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.sampleCaseService.findOne(id);

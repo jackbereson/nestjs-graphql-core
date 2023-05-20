@@ -18,7 +18,7 @@ export class SettingGroupResolver {
     return this.settingGroupService.fetch(args);
   }
 
-  @Query(() => SettingGroup, { name: 'SettingGroup' })
+  @Query(() => SettingGroup)
   getOneSettingGroup(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.settingGroupService.findById(id);

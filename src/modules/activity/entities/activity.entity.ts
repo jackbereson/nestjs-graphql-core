@@ -64,7 +64,7 @@ export class Activity extends BaseSchema {
 @ObjectType()
 export class ActivityPageData {
 
-  @Field(() => [Activity], { description: 'Activitys', nullable: true })
+  @Field(() => [Activity], { description: 'Activities', nullable: true })
   data?: Activity[]
 
   @Field(() => String, { description: 'Activity Total', nullable: true })

@@ -18,7 +18,7 @@ export class ActivityResolver {
     return this.activityService.fetch(args);
   }
 
-  @Query(() => Activity, { name: 'Activity' })
+  @Query(() => Activity)
   getOneActivity(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.activityService.findById(id)
