@@ -4,9 +4,8 @@ import { Customer } from '../entities/customer.entity';
 import { ROLES, Roles } from '../../../decorators/roles.decorator';
 import { Ctx } from '../../../decorators/ctx.decorator';
 import { Context } from '../../../auth/context';
-import { AuthHelper } from '../../../auth/auth';
 import { ErrorHelper } from '../../../helpers/error.helper';
-import { CustomerStatus } from '../customer.model';
+import { CustomerStatus } from '../customers.model';
 
 @Resolver(() => Customer)
 export class CustomerGetMeResolver {

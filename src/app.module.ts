@@ -10,7 +10,12 @@ import { RolesProvider } from './modules/guards/roles.provider';
 import { JwtModule } from '@nestjs/jwt';
 import { GraphQLLoggingMiddleware } from './middleware/logger.middleware';
 import { configs } from './configs';
-
+import { EventErrorModule } from './modules/eventError/eventError.module';
+import { UserModule } from './modules/user/user.module';
+import { SettingModule } from './modules/setting/setting.module';
+import { CounterModule } from './modules/counter/counter.module';
+import { SettingGroupModule } from './modules/settingGroup/settingGroup.module';
+import { ActivityModule } from './modules/activity/activity.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -24,7 +29,13 @@ import { configs } from './configs';
       secret: configs.secretKey,
       signOptions: { expiresIn: configs.expiresIn },
     }),
-    CustomersModule
+    ActivityModule,
+    CounterModule,
+    SettingGroupModule,
+    SettingModule,
+    UserModule,
+    CustomersModule,
+    EventErrorModule,
   ],
   controllers: [
     AppController

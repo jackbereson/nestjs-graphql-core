@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { CustomerStatus, CustomerWalletTypes } from '../customer.model';
+import { CustomerStatus, CustomerWalletTypes } from '../customers.model';
 import { BaseSchema, Pagination } from '../../../base/entity.base';
 import { BaseDocument } from '../../../base/model.base';
 

@@ -2,7 +2,6 @@ import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
 import { Customer, ICustomer } from './entities/customer.entity';
 import { CrudService } from '../../base/crud.base';
-import { CustomerModel } from './customer.model';
 
 @Injectable()
 export class CustomersService extends CrudService<Model<ICustomer>> {
