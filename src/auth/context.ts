@@ -35,7 +35,7 @@ export class Context {
   userToken: string; // user token
   shopToken: string; // shop token
   referralToken: string; // referral token
-  sigToken: string;// signnonce token
+  sigToken: string; // signnonce token
 
   constructor(params: { req?: Request; connection?: any }) {
     this.req = params.req;
@@ -57,9 +57,11 @@ export class Context {
     return get(this, "req.headers.user-agent");
   }
   get ip() {
-    return get(this, "req.headers.x-forwarded-for") || get(this, "req.headers.remoteAddress");
+    return (
+      get(this, "req.headers.x-forwarded-for") ||
+      get(this, "req.headers.remoteAddress")
+    );
   }
-
 
   getSigToken(params: any) {
     try {
@@ -74,16 +76,16 @@ export class Context {
     // console.log('jwt', this.jwtService)
     try {
       const { req, connection } = params;
-      let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzJiMTdhOGRhMzFlNTM2ZGJhNjg5YjMiLCJzdGF0dXMiOiJBQ1RJVkUiLCJpYXQiOjE2ODQ0MjM1NTYsImV4cCI6MTY4NDUwOTk1Nn0.rRijM3aa2Qq2UjGpuwbSWMGnaUcWjrZl-6ej6c42UtE";
+      let token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzJiMTdhOGRhMzFlNTM2ZGJhNjg5YjMiLCJzdGF0dXMiOiJBQ1RJVkUiLCJpYXQiOjE2ODQ0MjM1NTYsImV4cCI6MTY4NDUwOTk1Nn0.rRijM3aa2Qq2UjGpuwbSWMGnaUcWjrZl-6ej6c42UtE";
       if (token) {
         const decodedToken: any = await decodeToken(token);
         this.isAuth = true;
-        console.log('decodedToken', decodedToken)
+        console.log("decodedToken", decodedToken);
         this.tokenData = decodedToken;
       }
-
     } catch (err) {
-      console.log('err', err);
+      console.log("err", err);
       if (err instanceof TokenExpiredError) {
         this.isTokenExpired = true;
       }
@@ -114,7 +116,6 @@ export class Context {
         this.isAuth = true;
         this.tokenData = decodedToken;
       }
-
     } catch (err) {
       // console.log('err', err);
       if (err instanceof TokenExpiredError) {

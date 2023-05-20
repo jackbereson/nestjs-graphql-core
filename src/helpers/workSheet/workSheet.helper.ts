@@ -29,7 +29,11 @@ export class WorkSheetHelper {
     if (!sheet) sheet = this.worksheet;
     this.eachValueCell(cellRange, (c) => this.parseCell(c.master, info), sheet);
   }
-  public eachValueCell(cellRange: CellRange, callback: iterateCells, sheet?: Worksheet) {
+  public eachValueCell(
+    cellRange: CellRange,
+    callback: iterateCells,
+    sheet?: Worksheet
+  ) {
     if (!sheet) sheet = this.worksheet;
     const mergeCells: any = {};
     this.eachCell(
@@ -52,7 +56,8 @@ export class WorkSheetHelper {
     const mergedCells: Cell[] = [];
     sheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
       row.eachCell((c, cellNumber) => {
-        if (c.isMerged && mergedCells.find((cell) => c.isMergedTo(cell))) return;
+        if (c.isMerged && mergedCells.find((cell) => c.isMergedTo(cell)))
+          return;
         data.push(c);
         if (c.isMerged) mergedCells.push(c);
       });
@@ -89,14 +94,22 @@ export class WorkSheetHelper {
 
   public removeRows(startRowNumber: number, line: number) {
     const lastRow = this.getSheetDimension().bottom;
-    for (let rowNumber = startRowNumber + line; rowNumber <= lastRow; rowNumber++) {
+    for (
+      let rowNumber = startRowNumber + line;
+      rowNumber <= lastRow;
+      rowNumber++
+    ) {
       const rowSrc = this.worksheet.getRow(rowNumber);
       const rowDest = this.worksheet.getRow(rowNumber - line);
       this.moveRow(rowSrc, rowDest);
     }
   }
 
-  public cloneRows(srcRowStart: number, srcRowEnd: number, countClones: number = 1): void {
+  public cloneRows(
+    srcRowStart: number,
+    srcRowEnd: number,
+    countClones: number = 1
+  ): void {
     const countRows = srcRowEnd - srcRowStart + 1;
     const dxRow = countRows * countClones;
     const lastRow = this.getSheetDimension().bottom + dxRow;
@@ -110,10 +123,16 @@ export class WorkSheetHelper {
     }
 
     // Clone target rows
-    for (let rowSrcNumber = srcRowEnd; rowSrcNumber >= srcRowStart; rowSrcNumber--) {
+    for (
+      let rowSrcNumber = srcRowEnd;
+      rowSrcNumber >= srcRowStart;
+      rowSrcNumber--
+    ) {
       const rowSrc = this.worksheet.getRow(rowSrcNumber);
       for (let cloneNumber = countClones; cloneNumber > 0; cloneNumber--) {
-        const rowDest = this.worksheet.getRow(rowSrcNumber + countRows * cloneNumber);
+        const rowDest = this.worksheet.getRow(
+          rowSrcNumber + countRows * cloneNumber
+        );
         this.copyRow(rowSrc, rowDest);
       }
     }
@@ -145,7 +164,10 @@ export class WorkSheetHelper {
     this.eachCellReverse(
       rangeSrc,
       (cellSrc: Cell) => {
-        const cellDest = sheetDest!.getCell(cellSrc.row + dRow, cellSrc.col + dCol);
+        const cellDest = sheetDest!.getCell(
+          cellSrc.row + dRow,
+          cellSrc.col + dCol
+        );
         this.copyCell(cellSrc, cellDest, sheetSrc, sheetDest);
       },
       sheetSrc
@@ -158,7 +180,11 @@ export class WorkSheetHelper {
   }
 
   /** Iterate cells from the left of the top to the right of the bottom */
-  public eachCell(cellRange: CellRange, callBack: iterateCells, sheet?: Worksheet) {
+  public eachCell(
+    cellRange: CellRange,
+    callBack: iterateCells,
+    sheet?: Worksheet
+  ) {
     if (!sheet) sheet = this.worksheet;
     for (let r = cellRange.top; r <= cellRange.bottom; r++) {
       const row = sheet.findRow(r);
@@ -176,7 +202,11 @@ export class WorkSheetHelper {
   }
 
   /** Iterate cells from the right of the bottom to the top of the left */
-  public eachCellReverse(cellRange: CellRange, callBack: iterateCells, sheet?: Worksheet) {
+  public eachCellReverse(
+    cellRange: CellRange,
+    callBack: iterateCells,
+    sheet?: Worksheet
+  ) {
     if (!sheet) sheet = this.worksheet;
     for (let r = cellRange.bottom; r >= cellRange.top; r--) {
       const row = sheet.findRow(r);
@@ -196,13 +226,17 @@ export class WorkSheetHelper {
   private getMergeRange(cell: Cell, sheet?: Worksheet) {
     if (!sheet) sheet = this.worksheet;
     if (cell.isMerged && Array.isArray((sheet as any).model["merges"])) {
-      const address = cell.type === ValueType.Merge ? cell.master.address : cell.address;
+      const address =
+        cell.type === ValueType.Merge ? cell.master.address : cell.address;
       const cellRangeStr = (sheet as any).model["merges"].find((item: string) =>
         item.startsWith(address + ":")
       );
       if (cellRangeStr) {
         const [cellTlAdr, cellBrAdr] = cellRangeStr.split(":", 2);
-        return CellRange.createFromCells(sheet.getCell(cellTlAdr), sheet.getCell(cellBrAdr));
+        return CellRange.createFromCells(
+          sheet.getCell(cellTlAdr),
+          sheet.getCell(cellBrAdr)
+        );
       }
     }
     return null;
@@ -221,11 +255,17 @@ export class WorkSheetHelper {
       rowModel.cells = [];
       rowDest.model = rowModel;
       const cellRangeDest: any = {};
-      for (let colNumber = this.getSheetDimension().right; colNumber > 0; colNumber--) {
+      for (
+        let colNumber = this.getSheetDimension().right;
+        colNumber > 0;
+        colNumber--
+      ) {
         const cell = rowSrc.getCell(colNumber);
         const newCell = rowDest.getCell(colNumber);
         const regex = new RegExp(cell.address);
-        const range = (this.worksheet.model as any).merges.find((m: string) => regex.test(m));
+        const range = (this.worksheet.model as any).merges.find((m: string) =>
+          regex.test(m)
+        );
 
         if (!cellRangeDest[range]) {
           const cellRange = this.getMergeRange(cell);
@@ -306,7 +346,12 @@ export class WorkSheetHelper {
 
       // lastCellDest.style = lastCellSrc.style;
       try {
-        sheetDest.mergeCells(cellRange.top, cellRange.left, cellRange.bottom, cellRange.right);
+        sheetDest.mergeCells(
+          cellRange.top,
+          cellRange.left,
+          cellRange.bottom,
+          cellRange.right
+        );
       } catch (err) {
         console.log("err", err.message);
       }

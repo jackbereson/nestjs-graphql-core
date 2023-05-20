@@ -82,7 +82,13 @@ export class LogHelper {
     const padding = Array.from({ length }, (v, i) => " ").join("");
     console.log(
       chalk.bgHex("#4E7921")(
-        "\n" + padding + "\n" + `${initSpace}${text}${initSpace}` + "\n" + padding + "\n"
+        "\n" +
+          padding +
+          "\n" +
+          `${initSpace}${text}${initSpace}` +
+          "\n" +
+          padding +
+          "\n"
       )
     );
   };

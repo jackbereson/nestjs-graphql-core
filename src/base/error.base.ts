@@ -16,7 +16,9 @@ export class BaseError extends Error {
   info: IErrorInfo;
 }
 export class BaseErrorHelper {
-  static handleError(func: (req: express.Request, rep: express.Response) => Promise<any>) {
+  static handleError(
+    func: (req: express.Request, rep: express.Response) => Promise<any>
+  ) {
     return (req: express.Request, res: express.Response) =>
       func
         .bind(this)(req, res)
@@ -46,19 +48,31 @@ export class BaseErrorHelper {
   }
   static logError(prefix: string, logOption = true) {
     return (error: any) => {
-      console.log(prefix, error.message || error, logOption ? error.options : "");
+      console.log(
+        prefix,
+        error.message || error,
+        logOption ? error.options : ""
+      );
     };
   }
   // Unknow
   static somethingWentWrong(message?: string) {
-    return new BaseError(500, "500", message || "Sorry, errors. Please visit next times");
+    return new BaseError(
+      500,
+      "500",
+      message || "Sorry, errors. Please visit next times"
+    );
   }
   // Auth
   static unauthorized() {
     return new BaseError(401, "401", "Error, Unverified account");
   }
   static badToken() {
-    return new BaseError(401, "-1", "Not have access because of the expired token");
+    return new BaseError(
+      401,
+      "-1",
+      "Not have access because of the expired token"
+    );
   }
   static tokenExpired() {
     return new BaseError(401, "-2", "The access code has expired");
@@ -85,11 +99,7 @@ export class BaseErrorHelper {
     return new BaseError(403, "-9", "The branch is not open on this day");
   }
   static recoredNotFound(message: string) {
-    return new BaseError(
-      404,
-      "-10",
-      `Requested data not found: ${message}`
-    );
+    return new BaseError(404, "-10", `Requested data not found: ${message}`);
   }
   static spinError(message: string) {
     return new BaseError(403, "-115", message);

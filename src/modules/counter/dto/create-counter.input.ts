@@ -1,7 +1,7 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field } from "@nestjs/graphql";
 
 @InputType()
 export class CreateCounterInput {
-  @Field(() => String, { description: 'Name' })
+  @Field(() => String, { description: "Name" })
   name: string;
 }

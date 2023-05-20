@@ -23,10 +23,7 @@ export const getJsonFromCSVStream = (stream: any) => {
   });
 };
 
-export const modifyExcelData = (
-  result: any[],
-  headerData: any[]
-) => {
+export const modifyExcelData = (result: any[], headerData: any[]) => {
   // Cast type unknown to any
   let dataImport = <any[]>result;
   // console.log('dataImport', dataImport);
@@ -87,7 +84,7 @@ export const modifyExcelData = (
         error: "Dòng này không có dữ liệu",
       });
       continue;
-    } 
+    }
     dataResult.push({ ...item, line: index + 1 });
   }
   // console.log('=========>dataResult', dataResult);

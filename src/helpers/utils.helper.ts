@@ -18,7 +18,7 @@ export class UtilsHelper {
     );
     workBook.xlsx.write(res).then(res.end);
   }
-  
+
   static parsePhone(phone: string, pre: string) {
     if (!phone) return phone;
     let newPhone = "" + phone;
@@ -77,5 +77,15 @@ export class UtilsHelper {
   static getColor = () => colors[random(0, colors.length - 1)];
 }
 
-const colors = ["pink", "red", "orange", "amber", "blue", "green", "teal", "purple", "rose"];
+const colors = [
+  "pink",
+  "red",
+  "orange",
+  "amber",
+  "blue",
+  "green",
+  "teal",
+  "purple",
+  "rose",
+];
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;

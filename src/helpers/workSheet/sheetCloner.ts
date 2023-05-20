@@ -1,7 +1,7 @@
-import { Worksheet } from 'exceljs';
-import { CellRange } from './cell-range';
-import { WorkSheetHelper } from './workSheet.helper';
-import _ from 'lodash';
+import { Worksheet } from "exceljs";
+import { CellRange } from "./cell-range";
+import { WorkSheetHelper } from "./workSheet.helper";
+import _ from "lodash";
 export class SheetCloner {
   constructor(public baseSheet: Worksheet, public destSheet: Worksheet) {
     this.helper = new WorkSheetHelper(this.baseSheet);

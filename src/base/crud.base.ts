@@ -5,18 +5,18 @@ import { Injectable } from "@nestjs/common";
 import { BaseErrorHelper } from "./error.base";
 import { IParseQuery } from "../helpers/parseQuery.helper";
 import { configs } from "../configs";
-export interface IQueryOptions { }
-
+export interface IQueryOptions {}
 
 @Injectable()
-export abstract class CrudService<M extends Model<Document, {}>> extends BaseService {
+export abstract class CrudService<
+  M extends Model<Document, {}>
+> extends BaseService {
   model: M;
 
   constructor(model) {
     super();
     this.model = model;
   }
-
 
   async fetch(queryInput: any) {
     queryInput = { ...queryInput };
@@ -50,7 +50,10 @@ export abstract class CrudService<M extends Model<Document, {}>> extends BaseSer
     }
     if (queryInput.filter) {
       const filter = JSON.parse(
-        JSON.stringify(queryInput.filter).replace(/\"(\_\_)(\w+)\"\:/g, `"$$$2":`)
+        JSON.stringify(queryInput.filter).replace(
+          /\"(\_\_)(\w+)\"\:/g,
+          `"$$$2":`
+        )
       );
       query.setQuery({ ...filter });
     }
@@ -86,7 +89,6 @@ export abstract class CrudService<M extends Model<Document, {}>> extends BaseSer
     return await query.exec();
   }
 
-
   async findById(id: string) {
     return await this.model.findById(id);
   }
@@ -106,13 +108,15 @@ export abstract class CrudService<M extends Model<Document, {}>> extends BaseSer
   async updateOne(id: string, data: any) {
     await this.model.updateOne({ _id: id }, data);
     let record = await this.model.findOne({ _id: id });
-    if (!record) throw BaseErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
+    if (!record)
+      throw BaseErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
     return record;
   }
 
   async remove(id: string) {
     let record = await this.model.findOne({ _id: id });
-    if (!record) throw BaseErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
+    if (!record)
+      throw BaseErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
     await record.deleteOne();
     return record;
   }

@@ -1,4 +1,4 @@
-import { Cell } from 'exceljs';
+import { Cell } from "exceljs";
 
 export class CellRange {
   constructor(

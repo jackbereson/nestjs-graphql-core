@@ -7,6 +7,6 @@ export const sampleText: SizedIcon = "👺-lg";
  * 💊💊💊 Returns the sum of a and b
  * @param {string} king  😎
  */
- export const goTest = (king:string) =>{
-  return king;  
-}
+export const goTest = (king: string) => {
+  return king;
+};

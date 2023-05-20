@@ -8,11 +8,10 @@ import { generateToken } from "../../auth/jwt.auth";
 @Injectable()
 export class UserHelper {
   constructor(
-    @Inject('USER_MODEL')
+    @Inject("USER_MODEL")
     private userModel?: Model<IUser>,
     private counterService?: CounterService
-  ) {
-  }
+  ) {}
 
   setActivedAt(user: IUser) {
     if (user.status === UserStatus.ACTIVE && !user.activedAt) {

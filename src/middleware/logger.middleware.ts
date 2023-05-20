@@ -1,6 +1,6 @@
-import { Injectable, Logger, NestMiddleware, Query } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
-import { LogHelper } from '../helpers/log.helper';
+import { Injectable, Logger, NestMiddleware, Query } from "@nestjs/common";
+import { Request, Response, NextFunction } from "express";
+import { LogHelper } from "../helpers/log.helper";
 
 @Injectable()
 export class GraphQLLoggingMiddleware implements NestMiddleware {

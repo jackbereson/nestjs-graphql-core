@@ -1,7 +1,6 @@
 import { BaseErrorHelper } from "../base/error.base";
 import { Context } from "./context";
 
-
 /**
  * * Authentication Helper
  * * 💊💊💊 valid auth
@@ -9,13 +8,13 @@ import { Context } from "./context";
  * * 💊💊💊 valid _id and auth
  */
 export class AuthHelper {
-  constructor() { }
+  constructor() {}
 
   /**
    * * 💊💊💊 Valid role with Roles and return nothing if unauthorized.
-   * @param context 
-   * @param roles 
-   * @returns  
+   * @param context
+   * @param roles
+   * @returns
    * TODOs : use in query - resolver funtion
    */
   static acceptRoles(context: Context, roles: String[]) {
@@ -30,8 +29,8 @@ export class AuthHelper {
 
   /**
    * * 💊💊💊 Valid context and return nothing if unauthorized.
-   * @param context 
-   * @param throwError 
+   * @param context
+   * @param throwError
    * @returns
    */
   static checkValidAuth(context: Context, throwError = true) {
@@ -48,9 +47,9 @@ export class AuthHelper {
 
   /**
    * * 💊💊💊 check owner by _id and return nothing if unauthorized.
-   * @param context 
-   * @param _id 
-   * @param throwError 
+   * @param context
+   * @param _id
+   * @param throwError
    * @returns
    */
   static isOwner(context: Context, _id: string, throwError = true) {

@@ -8,13 +8,16 @@ export const genSalt = () => {
   return bcrypt.genSaltSync(15);
 };
 
-export const generatePassword = (data: string, salt: string) => bcrypt.hashSync(data, salt)
+export const generatePassword = (data: string, salt: string) =>
+  bcrypt.hashSync(data, salt);
 
-export const encodePepper = (data: string) => crypto.MD5(data).toString()
+export const encodePepper = (data: string) => crypto.MD5(data).toString();
 
-export const setupPassword = (pepperPassword: string, id: string) => crypto.MD5(`${pepperPassword}${id}`).toString()
+export const setupPassword = (pepperPassword: string, id: string) =>
+  crypto.MD5(`${pepperPassword}${id}`).toString();
 
-export const createPepperPassword = (password: string) => encodePepper(password)
+export const createPepperPassword = (password: string) =>
+  encodePepper(password);
 
 export const createPassword = (password: string, id: string) => {
   const salt = genSalt();
@@ -23,7 +26,11 @@ export const createPassword = (password: string, id: string) => {
   return hassPassword;
 };
 
-export const comparePassword = (password: string, id: string, hassPassword: string) => {
+export const comparePassword = (
+  password: string,
+  id: string,
+  hassPassword: string
+) => {
   const customPassword = setupPassword(password, id);
   const result = bcrypt.compareSync(customPassword, hassPassword);
   return result;

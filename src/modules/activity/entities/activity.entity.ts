@@ -1,7 +1,7 @@
-import { ObjectType, Field } from '@nestjs/graphql';
-import { BaseSchema, Pagination } from '../../../base/entity.base';
-import { BaseDocument } from '../../../base/model.base';
-import { ActivityStatus } from '../activity.model';
+import { ObjectType, Field } from "@nestjs/graphql";
+import { BaseSchema, Pagination } from "../../../base/entity.base";
+import { BaseDocument } from "../../../base/model.base";
+import { ActivityStatus } from "../activity.model";
 
 export enum ActivityTypes {
   ADMIN_SIGNIN = "ADMIN_SIGNIN",
@@ -40,9 +40,8 @@ export enum ChangedFactors {
 
 @ObjectType()
 export class Activity extends BaseSchema {
-
-  @Field(() => String, { description: 'Name' })
-  name?: string
+  @Field(() => String, { description: "Name" })
+  name?: string;
 
   userId?: string;
   customerId?: string;
@@ -57,22 +56,22 @@ export class Activity extends BaseSchema {
   @Field(() => String, { description: `Factor` })
   changedFactor?: ChangedFactors;
 
-  @Field(() => String, { description: `Roles: ${Object.keys(ActivityStatus).join(",")}` })
-  status?: ActivityStatus
+  @Field(() => String, {
+    description: `Roles: ${Object.keys(ActivityStatus).join(",")}`,
+  })
+  status?: ActivityStatus;
 }
 
 @ObjectType()
 export class ActivityPageData {
+  @Field(() => [Activity], { description: "Activities", nullable: true })
+  data?: Activity[];
 
-  @Field(() => [Activity], { description: 'Activities', nullable: true })
-  data?: Activity[]
+  @Field(() => String, { description: "Activity Total", nullable: true })
+  total?: number;
 
-  @Field(() => String, { description: 'Activity Total', nullable: true })
-  total?: number
-
-  @Field(() => Pagination, { description: 'Pagination', nullable: true })
-  pagination?: Pagination
+  @Field(() => Pagination, { description: "Pagination", nullable: true })
+  pagination?: Pagination;
 }
 
-
-export type IActivity = BaseDocument & Activity
+export type IActivity = BaseDocument & Activity;
