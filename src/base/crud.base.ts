@@ -86,6 +86,11 @@ export abstract class CrudService<M extends Model<Document, {}>> extends BaseSer
     return await query.exec();
   }
 
+
+  async findById(id: string) {
+    return await this.model.findById(id);
+  }
+
   async findOne(filter: any) {
     return await this.model.findOne(filter);
   }

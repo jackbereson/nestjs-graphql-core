@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../../database.module';
-import { TokenHelper } from '../../auth/jwt.auth';
+import { DatabaseModule } from '../../databases/maindb/database.module';
 import { SettingGroupService } from './settingGroup.service';
 import { SettingGroupResolver } from './settingGroup.resolver';
 import { SettingGroupProviders } from './settingGroup.model';
@@ -8,7 +7,6 @@ import { SettingGroupProviders } from './settingGroup.model';
 @Module({
     imports: [DatabaseModule],
     providers: [
-      TokenHelper,
       SettingGroupResolver,
       SettingGroupService,
       ...SettingGroupProviders,

@@ -1,5 +1,5 @@
 ---
-to: src/modules/<%= h.inflection.camelize(name, true) %>/dto/create-<%= h.inflection.camelize(name, true) %>.input.ts
+to: src/modules/<%= h.inflection.camelize(name, true) %>/dto/create-<%= h.changeCase.paramCase(name, true) %>.input.ts
 ---
 import { InputType, Field } from '@nestjs/graphql';
 

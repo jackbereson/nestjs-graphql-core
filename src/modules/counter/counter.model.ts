@@ -8,15 +8,16 @@ export enum CounterStatus {
 
 export const CounterModel = new Schema(
     {
-        name: { type: String },
+        name: { type: String, required: true, unique: true },
+        value: { type: Number, default: 0 },
         status: { type: String, enum: CounterStatus, default: CounterStatus.ACTIVE },
     },
     { timestamps: true }
 );
 
 CounterModel.index(
-    { address: "text", addressIp: "text" },
-    { weights: { address: 2, addressIp: 3 } }
+    { name: "text" },
+    { weights: { address: 2 } }
 );
 
 export const CounterProviders = [

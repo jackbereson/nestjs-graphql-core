@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID} from '@nestjs/graphql';
 import { CustomersService } from './customers.service';
 import { Customer, CustomerPageData } from './entities/customer.entity';
 import { CreateCustomerInput } from './dto/create-customer.input';
@@ -13,15 +13,15 @@ export class CustomersResolver {
   constructor(private readonly customersService: CustomersService) { }
 
   @Query(() => CustomerPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  async getAllCustomers(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.customersService.fetch(args);
   }
 
   @Query(() => Customer, { name: 'customer' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOneCustomer(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.customersService.findOne(id);
+    return this.customersService.findById(id);
   }
 
   @Mutation(() => Customer)
@@ -38,7 +38,7 @@ export class CustomersResolver {
 
   @Mutation(() => Customer)
   @Roles(ROLES.ADMIN)
-  removeCustomer(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeCustomer(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.customersService.remove(id);
   }
 }

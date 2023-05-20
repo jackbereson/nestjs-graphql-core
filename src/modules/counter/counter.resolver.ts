@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID} from '@nestjs/graphql';
 import { CounterService } from './counter.service';
 import { Counter, CounterPageData } from './entities/counter.entity';
 import { CreateCounterInput } from './dto/create-counter.input';
@@ -12,16 +12,16 @@ import { Context } from '../../auth/context';
 export class CounterResolver {
   constructor(private readonly counterService: CounterService) { }
 
-  @Query(() => CounterPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  @Query(() => CounterPageData, { name: 'Counters' })
+  async getAllCounters(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.counterService.fetch(args);
   }
 
   @Query(() => Counter, { name: 'Counter' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOneCounters(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.counterService.findOne(id);
+    return this.counterService.findById(id);
   }
 
   @Mutation(() => Counter)
@@ -38,7 +38,7 @@ export class CounterResolver {
 
   @Mutation(() => Counter)
   @Roles(ROLES.ADMIN)
-  removeCounter(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeCounter(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.counterService.remove(id);
   }
 }

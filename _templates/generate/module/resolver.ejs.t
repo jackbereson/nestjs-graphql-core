@@ -1,11 +1,11 @@
 ---
 to: src/modules/<%= h.inflection.camelize(name, true) %>/<%= h.inflection.camelize(name, true) %>.resolver.ts
 ---
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { <%= h.inflection.camelize(name) %>Service } from './<%= h.inflection.camelize(name, true) %>.service';
 import { <%= h.inflection.camelize(name) %>, <%= h.inflection.camelize(name) %>PageData } from './entities/<%= h.inflection.camelize(name, true) %>.entity';
-import { Create<%= h.inflection.camelize(name) %>Input } from './dto/create-<%= h.inflection.camelize(name, true) %>.input';
-import { Update<%= h.inflection.camelize(name) %>Input } from './dto/update-<%= h.inflection.camelize(name, true) %>.input';
+import { Create<%= h.inflection.camelize(name) %>Input } from './dto/create-<%= h.changeCase.paramCase(name, true) %>.input';
+import { Update<%= h.inflection.camelize(name) %>Input } from './dto/update-<%= h.changeCase.paramCase(name, true) %>.input';
 import { QueryGetListInput } from '../../base/input.base';
 import { ROLES, Roles } from '../../decorators/roles.decorator';
 import { Ctx } from '../../decorators/ctx.decorator';
@@ -16,13 +16,13 @@ export class <%= h.inflection.camelize(name) %>Resolver {
   constructor(private readonly <%= h.inflection.camelize(name, true) %>Service: <%= h.inflection.camelize(name) %>Service) { }
 
   @Query(() => <%= h.inflection.camelize(name) %>PageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  async getAll<%= h.inflection.camelize(h.inflection.camelize(name)) %>(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.<%= h.inflection.camelize(name, true) %>Service.fetch(args);
   }
 
   @Query(() => <%= h.inflection.camelize(name) %>, { name: '<%= h.inflection.camelize(name) %>' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOne<%= h.inflection.camelize(name) %>(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.<%= h.inflection.camelize(name, true) %>Service.findOne(id);
   }
@@ -41,7 +41,7 @@ export class <%= h.inflection.camelize(name) %>Resolver {
 
   @Mutation(() => <%= h.inflection.camelize(name) %>)
   @Roles(ROLES.ADMIN)
-  remove<%= h.inflection.camelize(name) %>(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  remove<%= h.inflection.camelize(name) %>(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.<%= h.inflection.camelize(name, true) %>Service.remove(id);
   }
 }

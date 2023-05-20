@@ -18,8 +18,8 @@ export const <%= h.inflection.camelize(name) %>Model = new Schema(
 );
 
 <%= h.inflection.camelize(name) %>Model.index(
-    { address: "text", addressIp: "text" },
-    { weights: { address: 2, addressIp: 3 } }
+    { name: "text" },
+    { weights: { name: 1 } }
 );
 
 export const <%= h.inflection.camelize(name) %>Providers = [

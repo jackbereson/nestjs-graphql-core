@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID} from '@nestjs/graphql';
 import { SettingGroupService } from './settingGroup.service';
 import { SettingGroup, SettingGroupPageData } from './entities/settingGroup.entity';
 import { CreateSettingGroupInput } from './dto/create-settingGroup.input';
@@ -13,15 +13,15 @@ export class SettingGroupResolver {
   constructor(private readonly settingGroupService: SettingGroupService) { }
 
   @Query(() => SettingGroupPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  async getAllSettingGroups(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.settingGroupService.fetch(args);
   }
 
   @Query(() => SettingGroup, { name: 'SettingGroup' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOneSettingGroup(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.settingGroupService.findOne(id);
+    return this.settingGroupService.findById(id);
   }
 
   @Mutation(() => SettingGroup)
@@ -38,7 +38,7 @@ export class SettingGroupResolver {
 
   @Mutation(() => SettingGroup)
   @Roles(ROLES.ADMIN)
-  removeSettingGroup(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeSettingGroup(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.settingGroupService.remove(id);
   }
 }

@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID} from '@nestjs/graphql';
 import { EventErrorService } from './eventError.service';
 import { EventError, EventErrorPageData } from './entities/eventError.entity';
 import { CreateEventErrorInput } from './dto/create-eventError.input';
@@ -13,15 +13,15 @@ export class EventErrorResolver {
   constructor(private readonly eventErrorService: EventErrorService) { }
 
   @Query(() => EventErrorPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  async getAllEventErrors(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.eventErrorService.fetch(args);
   }
 
   @Query(() => EventError, { name: 'EventError' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOneEventError(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.eventErrorService.findOne(id);
+    return this.eventErrorService.findById(id);
   }
 
   @Mutation(() => EventError)
@@ -38,7 +38,7 @@ export class EventErrorResolver {
 
   @Mutation(() => EventError)
   @Roles(ROLES.ADMIN)
-  removeEventError(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeEventError(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.eventErrorService.remove(id);
   }
 }

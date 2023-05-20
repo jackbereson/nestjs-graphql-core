@@ -1,9 +1,9 @@
 import { Request } from "express";
 import { TokenExpiredError } from "jsonwebtoken";
 import _, { get } from "lodash";
-import { TokenHelper } from "./jwt.auth";
 import { ROLES } from "../decorators/roles.decorator";
 import { AuthHelper } from "./auth";
+import { decodeToken } from "./jwt.auth";
 
 export type TokenData = {
   role: string;
@@ -76,9 +76,9 @@ export class Context {
       const { req, connection } = params;
       let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ1VTVE9NRVIiLCJfaWQiOiI2MzJiMTdhOGRhMzFlNTM2ZGJhNjg5YjMiLCJzdGF0dXMiOiJBQ1RJVkUiLCJpYXQiOjE2ODQ0MjM1NTYsImV4cCI6MTY4NDUwOTk1Nn0.rRijM3aa2Qq2UjGpuwbSWMGnaUcWjrZl-6ej6c42UtE";
       if (token) {
-        const decodedToken: any = await TokenHelper.decodeToken(token);
+        const decodedToken: any = await decodeToken(token);
         this.isAuth = true;
-        // console.log('decodedToken', decodedToken)
+        console.log('decodedToken', decodedToken)
         this.tokenData = decodedToken;
       }
 
@@ -110,7 +110,7 @@ export class Context {
       // }
 
       if (token) {
-        const decodedToken: any = TokenHelper.decodeToken(token);
+        const decodedToken: any = decodeToken(token);
         this.isAuth = true;
         this.tokenData = decodedToken;
       }

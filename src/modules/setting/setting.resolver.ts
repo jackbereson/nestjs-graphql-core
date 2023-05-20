@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID} from '@nestjs/graphql';
 import { SettingService } from './setting.service';
 import { Setting, SettingPageData } from './entities/setting.entity';
 import { CreateSettingInput } from './dto/create-setting.input';
@@ -13,15 +13,15 @@ export class SettingResolver {
   constructor(private readonly settingService: SettingService) { }
 
   @Query(() => SettingPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  async getAllSettings(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.settingService.fetch(args);
   }
 
   @Query(() => Setting, { name: 'Setting' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOneSetting(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.settingService.findOne(id);
+    return this.settingService.findById(id);
   }
 
   @Mutation(() => Setting)
@@ -38,7 +38,7 @@ export class SettingResolver {
 
   @Mutation(() => Setting)
   @Roles(ROLES.ADMIN)
-  removeSetting(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeSetting(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.settingService.remove(id);
   }
 }

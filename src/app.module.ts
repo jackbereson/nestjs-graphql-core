@@ -16,6 +16,8 @@ import { SettingModule } from './modules/setting/setting.module';
 import { CounterModule } from './modules/counter/counter.module';
 import { SettingGroupModule } from './modules/settingGroup/settingGroup.module';
 import { ActivityModule } from './modules/activity/activity.module';
+import { ScheduleModule } from '@nestjs/schedule';
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -29,6 +31,7 @@ import { ActivityModule } from './modules/activity/activity.module';
       secret: configs.secretKey,
       signOptions: { expiresIn: configs.expiresIn },
     }),
+    ScheduleModule.forRoot(),
     ActivityModule,
     CounterModule,
     SettingGroupModule,

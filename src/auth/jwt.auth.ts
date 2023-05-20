@@ -10,25 +10,22 @@ export interface IPayloadToken {
   [name: string]: any;
 }
 
-const jwt = new JwtService({
+export const jwt = new JwtService({
   global: true,
   secret: configs.secretKey,
   signOptions: { expiresIn: configs.expiresIn },
 });
 
-export class TokenHelper {
+export const generateToken = (payload: IPayloadToken): string => {
+  return jwt.sign(payload);
+}
 
-  static generateToken(payload: IPayloadToken): string {
-    return jwt.sign(payload);
-  }
+export const decodeToken = (token: string) => {
+  return jwt.verify(token);
+}
 
-  static decodeToken(token: string) {
-    return jwt.verify(token);
-  }
-
-  static getAdministratorToken() {
-    return this.generateToken({
-      role: ROLES.ADMIN,
-    });
-  }
+export const getAdministratorToken = () => {
+  return generateToken({
+    role: ROLES.ADMIN,
+  });
 }

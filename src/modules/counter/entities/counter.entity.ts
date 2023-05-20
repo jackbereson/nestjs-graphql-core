@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { BaseSchema, Pagination } from '../../../base/entity.base';
 import { BaseDocument } from '../../../base/model.base';
 import { CounterStatus } from '../counter.model';
@@ -9,7 +9,10 @@ export class Counter extends BaseSchema {
   @Field(() => String, { description: 'Name' })
   name?: string
 
-  @Field(() => String, { description: `Roles: ${Object.keys(CounterStatus).join(",")}` })
+  @Field(() => Int, { description: 'Value' })
+  value?: number;
+
+  @Field(() => String, { description: `Status: ${Object.keys(CounterStatus).join(",")}` })
   status?: CounterStatus
 }
 

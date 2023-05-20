@@ -8,6 +8,6 @@ async function bootstrap() {
     bufferLogs: true,
   });
   await app.listen(configs.port);
-  new Logger('NestApplication').debug(`Application start at ${configs.domain}`);
+  new Logger('NestApplication').debug(`Application start at ${configs.domain}/graphql`);
 }
 bootstrap();

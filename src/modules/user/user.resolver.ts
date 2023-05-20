@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User, UserPageData } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
@@ -13,15 +13,15 @@ export class UserResolver {
   constructor(private readonly userService: UserService) { }
 
   @Query(() => UserPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
-    context.auth([ROLES.ADMIN])
+  async getAllUsers(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+    // context.auth([ROLES.ADMIN])
     return this.userService.fetch(args);
   }
 
-  @Query(() => User, { name: 'User' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  @Query(() => User)
+  getOneUser(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.userService.findOne(id);
+    return this.userService.findById(id)
   }
 
   @Mutation(() => User)
@@ -38,7 +38,7 @@ export class UserResolver {
 
   @Mutation(() => User)
   @Roles(ROLES.ADMIN)
-  removeUser(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeUser(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.userService.remove(id);
   }
 }

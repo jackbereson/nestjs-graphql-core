@@ -9,8 +9,29 @@ export class User extends BaseSchema {
   @Field(() => String, { description: 'Name' })
   name?: string
 
+  @Field(() => String, { description: 'Code' })
+  code?: string;
+
+  @Field(() => String, { description: 'Email' })
+  email?: string;
+
+  @Field(() => String, { description: 'Role' })
+  role?: string;
+
+  @Field(() => String, { description: 'Avatar' })
+  avatar?: string;
+
+  @Field(() => Date, { description: 'Last login at' })
+  lastLoginAt?: Date;
+
+  @Field(() => Date, { description: 'Active at' })
+  activedAt?: Date;
+
   @Field(() => String, { description: `Roles: ${Object.keys(UserStatus).join(",")}` })
-  status?: UserStatus
+  status?: UserStatus;
+
+  password?: string;
+  walletAddress?: string;
 }
 
 @ObjectType()

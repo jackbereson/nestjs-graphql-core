@@ -15,8 +15,8 @@ export const SettingModel = new Schema(
 );
 
 SettingModel.index(
-    { address: "text", addressIp: "text" },
-    { weights: { address: 2, addressIp: 3 } }
+    { name: "text" },
+    { weights: { name: 1 } }
 );
 
 export const SettingProviders = [

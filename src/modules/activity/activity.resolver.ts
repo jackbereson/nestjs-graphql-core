@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID} from '@nestjs/graphql';
 import { ActivityService } from './activity.service';
 import { Activity, ActivityPageData } from './entities/activity.entity';
 import { CreateActivityInput } from './dto/create-activity.input';
@@ -13,15 +13,15 @@ export class ActivityResolver {
   constructor(private readonly activityService: ActivityService) { }
 
   @Query(() => ActivityPageData)
-  async findAll(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
+  async getAllActivities(@Args('q') args: QueryGetListInput, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
     return this.activityService.fetch(args);
   }
 
   @Query(() => Activity, { name: 'Activity' })
-  findOne(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  getOneActivity(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     context.auth([ROLES.ADMIN])
-    return this.activityService.findOne(id);
+    return this.activityService.findById(id)
   }
 
   @Mutation(() => Activity)
@@ -38,7 +38,7 @@ export class ActivityResolver {
 
   @Mutation(() => Activity)
   @Roles(ROLES.ADMIN)
-  removeActivity(@Args('id', { type: () => String }) id: string, @Ctx() context: Context) {
+  removeActivity(@Args('id', { type: () => ID }) id: string, @Ctx() context: Context) {
     return this.activityService.remove(id);
   }
 }
