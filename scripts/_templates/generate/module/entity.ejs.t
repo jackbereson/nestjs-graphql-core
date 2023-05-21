@@ -12,7 +12,7 @@ export class <%= h.inflection.camelize(name) %> extends BaseSchema {
   @Field(() => String, { description: 'Name' })
   name?: string
 
-  @Field(() => String, { description: `Roles: ${Object.keys(<%= h.inflection.camelize(name) %>Status).join(",")}` })
+  @Field(() => String, { description: `Status: ${Object.keys(<%= h.inflection.camelize(name) %>Status).join(",")}` })
   status?: <%= h.inflection.camelize(name) %>Status
 }
 

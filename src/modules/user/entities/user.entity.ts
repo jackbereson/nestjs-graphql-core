@@ -2,11 +2,15 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { BaseSchema, Pagination } from "../../../base/entity.base";
 import { BaseDocument } from "../../../base/model.base";
 import { UserStatus } from "../user.model";
+import { ROLES } from "../../../constants/role.const";
 
 @ObjectType()
 export class User extends BaseSchema {
   @Field(() => String, { description: "Name" })
   name?: string;
+
+  @Field(() => String, { description: "Wallet Address" })
+  walletAddress?: string;
 
   @Field(() => String, { description: "Code" })
   code?: string;
@@ -15,7 +19,7 @@ export class User extends BaseSchema {
   email?: string;
 
   @Field(() => String, { description: "Role" })
-  role?: string;
+  role?: ROLES;
 
   @Field(() => String, { description: "Avatar" })
   avatar?: string;
@@ -27,12 +31,14 @@ export class User extends BaseSchema {
   activedAt?: Date;
 
   @Field(() => String, {
-    description: `Roles: ${Object.keys(UserStatus).join(",")}`,
+    description: `Status: ${Object.keys(UserStatus).join(",")}`,
   })
   status?: UserStatus;
 
+  @Field(() => Date, { description: "Token" })
+  token?: string;
+
   password?: string;
-  walletAddress?: string;
 }
 
 @ObjectType()

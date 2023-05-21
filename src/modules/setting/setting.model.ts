@@ -1,18 +1,41 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-export enum SettingStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
+export enum SettingTypes {
+  string = "string",
+  number = "number",
+  array = "array",
+  object = "object",
+  richText = "richText",
+  boolean = "boolean",
+  json = "json",
+}
+
+export enum EditModes {
+  SYSTEM = "SYSTEM",
+  USER = "USER",
 }
 
 export const SettingModel = new Schema(
   {
-    name: { type: String },
-    status: {
+    type: {
       type: String,
-      enum: SettingStatus,
-      default: SettingStatus.ACTIVE,
+      enum: Object.values(SettingTypes),
+      required: true,
+      default: SettingTypes.string,
+    },
+    name: { type: String, required: true },
+    key: { type: String, required: true, unique: true },
+    value: { type: Schema.Types.Mixed, required: true },
+    isActive: { type: Boolean, required: true, default: true },
+    isPrivate: { type: Boolean, required: true, default: false },
+    readOnly: { type: Boolean, default: false },
+    groupId: { type: Schema.Types.ObjectId, required: true },
+    editMode: {
+      type: String,
+      enum: Object.values(EditModes),
+      required: true,
+      default: EditModes.SYSTEM,
     },
   },
   { timestamps: true }

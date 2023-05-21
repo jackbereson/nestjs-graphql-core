@@ -4,7 +4,8 @@ import { Counter, CounterPageData } from "./entities/counter.entity";
 import { CreateCounterInput } from "./dto/create-counter.input";
 import { UpdateCounterInput } from "./dto/update-counter.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import { ROLES } from "../../constants/role.const";
+import { Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
 

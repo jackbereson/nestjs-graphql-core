@@ -4,13 +4,14 @@ import { User, UserPageData } from "./entities/user.entity";
 import { CreateUserInput } from "./dto/create-user.input";
 import { UpdateUserInput } from "./dto/update-user.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import { Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
+import { ROLES } from "../../constants/role.const";
 
 @Resolver(() => User)
 export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Query(() => UserPageData)
   async getAllUsers(

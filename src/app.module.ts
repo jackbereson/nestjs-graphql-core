@@ -31,7 +31,7 @@ import { JobsModule } from "./schedulers/jobs.module";
       secret: configs.secretKey,
       signOptions: { expiresIn: configs.expiresIn },
     }),
-    JobsModule,
+    // JobsModule,
     ActivityModule,
     CounterModule,
     SettingGroupModule,

@@ -1,7 +1,7 @@
 import { JwtService } from "@nestjs/jwt";
-import { ROLES } from "../decorators/roles.decorator";
 import * as dotenv from "dotenv";
 import { configs } from "../configs";
+import { ROLES } from "../constants/role.const";
 
 dotenv.config();
 

@@ -1,9 +1,9 @@
 import { Request } from "express";
 import { TokenExpiredError } from "jsonwebtoken";
 import _, { get } from "lodash";
-import { ROLES } from "../decorators/roles.decorator";
 import { AuthHelper } from "./auth";
 import { decodeToken } from "./jwt.auth";
+import { ROLES } from "../constants/role.const";
 
 export type TokenData = {
   role: string;
@@ -30,10 +30,7 @@ export class Context {
   isAuth = false;
   isTokenExpired = false;
   tokenData: TokenData;
-  passwordToken: string; // password signup - signin - md5
-  recoveryToken: string; // recover token
-  userToken: string; // user token
-  shopToken: string; // shop token
+  token: string; // user token
   referralToken: string; // referral token
   sigToken: string; // signnonce token
 
@@ -49,6 +46,9 @@ export class Context {
   }
   isCustomer() {
     return get(this.tokenData, "role") == ROLES.CUSTOMER;
+  }
+  isOperator() {
+    return get(this.tokenData, "role") == ROLES.OPERATOR;
   }
   get id() {
     return get(this.tokenData, "_id");
@@ -82,6 +82,7 @@ export class Context {
         const decodedToken: any = await decodeToken(token);
         this.isAuth = true;
         console.log("decodedToken", decodedToken);
+        this.token = token;
         this.tokenData = decodedToken;
       }
     } catch (err) {
@@ -114,6 +115,7 @@ export class Context {
       if (token) {
         const decodedToken: any = decodeToken(token);
         this.isAuth = true;
+        this.token = token;
         this.tokenData = decodedToken;
       }
     } catch (err) {

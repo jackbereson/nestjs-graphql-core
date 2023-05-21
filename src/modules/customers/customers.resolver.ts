@@ -4,9 +4,10 @@ import { Customer, CustomerPageData } from "./entities/customer.entity";
 import { CreateCustomerInput } from "./dto/create-customer.input";
 import { UpdateCustomerInput } from "./dto/update-customer.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import {  Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
+import { ROLES } from "../../constants/role.const";
 
 @Resolver(() => Customer)
 export class CustomersResolver {

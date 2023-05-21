@@ -4,13 +4,14 @@ import { Activity, ActivityPageData } from "./entities/activity.entity";
 import { CreateActivityInput } from "./dto/create-activity.input";
 import { UpdateActivityInput } from "./dto/update-activity.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import { Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
+import { ROLES } from "../../constants/role.const";
 
 @Resolver(() => Activity)
 export class ActivityResolver {
-  constructor(private readonly activityService: ActivityService) {}
+  constructor(private readonly activityService: ActivityService) { }
 
   @Query(() => ActivityPageData)
   async getAllActivities(

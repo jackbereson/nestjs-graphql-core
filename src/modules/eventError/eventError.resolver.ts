@@ -4,13 +4,14 @@ import { EventError, EventErrorPageData } from "./entities/eventError.entity";
 import { CreateEventErrorInput } from "./dto/create-eventError.input";
 import { UpdateEventErrorInput } from "./dto/update-eventError.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import { Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
+import { ROLES } from "../../constants/role.const";
 
 @Resolver(() => EventError)
 export class EventErrorResolver {
-  constructor(private readonly eventErrorService: EventErrorService) {}
+  constructor(private readonly eventErrorService: EventErrorService) { }
 
   @Query(() => EventErrorPageData)
   async getAllEventErrors(

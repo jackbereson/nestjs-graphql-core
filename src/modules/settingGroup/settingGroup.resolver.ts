@@ -7,13 +7,14 @@ import {
 import { CreateSettingGroupInput } from "./dto/create-settingGroup.input";
 import { UpdateSettingGroupInput } from "./dto/update-settingGroup.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import { Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
+import { ROLES } from "../../constants/role.const";
 
 @Resolver(() => SettingGroup)
 export class SettingGroupResolver {
-  constructor(private readonly settingGroupService: SettingGroupService) {}
+  constructor(private readonly settingGroupService: SettingGroupService) { }
 
   @Query(() => SettingGroupPageData)
   async getAllSettingGroups(

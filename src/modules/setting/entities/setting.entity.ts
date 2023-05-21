@@ -1,17 +1,56 @@
-import { ObjectType, Field } from "@nestjs/graphql";
+import { ObjectType, Field, ID } from "@nestjs/graphql";
 import { BaseSchema, Pagination } from "../../../base/entity.base";
 import { BaseDocument } from "../../../base/model.base";
-import { SettingStatus } from "../setting.model";
+import { EditModes, SettingTypes } from "../setting.model";
+import { GraphQLJSON, GraphQLJSONObject } from "graphql-type-json";
 
 @ObjectType()
 export class Setting extends BaseSchema {
+
+
   @Field(() => String, { description: "Name" })
   name?: string;
 
   @Field(() => String, {
-    description: `Roles: ${Object.keys(SettingStatus).join(",")}`,
+    description: `Type: ${Object.keys(SettingTypes).join(",")}`,
   })
-  status?: SettingStatus;
+  type?: SettingTypes;
+
+  @Field(() => String, {
+    description: `Key`,
+  })
+  key?: string;
+
+  @Field(() => GraphQLJSON, {
+    description: `Value`,
+  })
+  value?: any;
+
+
+  @Field(() => Boolean, {
+    description: `Is Active`,
+  })
+  isActive?: boolean;
+
+  @Field(() => Boolean, {
+    description: `Is Private`,
+  })
+  isPrivate?: boolean;
+
+  @Field(() => Boolean, {
+    description: `Read only`,
+  })
+  readOnly?: boolean;
+
+  @Field(() => ID, {
+    description: `Group id`,
+  })
+  groupId?: string;
+
+  @Field(() => Boolean, {
+    description: `Edit Modes`,
+  })
+  editMode?: EditModes;
 }
 
 @ObjectType()

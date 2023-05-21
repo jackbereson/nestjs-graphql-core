@@ -9,7 +9,7 @@ export class EventError extends BaseSchema {
   name?: string;
 
   @Field(() => String, {
-    description: `Roles: ${Object.keys(EventErrorStatus).join(",")}`,
+    description: `Status: ${Object.keys(EventErrorStatus).join(",")}`,
   })
   status?: EventErrorStatus;
 }

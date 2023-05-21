@@ -57,7 +57,7 @@ export class Activity extends BaseSchema {
   changedFactor?: ChangedFactors;
 
   @Field(() => String, {
-    description: `Roles: ${Object.keys(ActivityStatus).join(",")}`,
+    description: `Status: ${Object.keys(ActivityStatus).join(",")}`,
   })
   status?: ActivityStatus;
 }

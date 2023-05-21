@@ -7,7 +7,8 @@ import { <%= h.inflection.camelize(name) %>, <%= h.inflection.camelize(name) %>P
 import { Create<%= h.inflection.camelize(name) %>Input } from './dto/create-<%= h.changeCase.paramCase(name, true) %>.input';
 import { Update<%= h.inflection.camelize(name) %>Input } from './dto/update-<%= h.changeCase.paramCase(name, true) %>.input';
 import { QueryGetListInput } from '../../base/input.base';
-import { ROLES, Roles } from '../../decorators/roles.decorator';
+import { ROLES } from "../constants/role.const";
+import { Roles } from '../../decorators/roles.decorator';
 import { Ctx } from '../../decorators/ctx.decorator';
 import { Context } from '../../auth/context';
 

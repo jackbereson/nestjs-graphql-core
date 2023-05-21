@@ -1,30 +1,33 @@
 import { Model } from "mongoose";
 import * as crypto from "crypto";
 import { set } from "lodash";
-import { Injectable, Inject } from "@nestjs/common";
+import { Injectable, Inject, Logger } from "@nestjs/common";
 import { CrudService } from "../../base/crud.base";
 import { User, IUser } from "./entities/user.entity";
 import { createPassword } from "../../helpers/encryption.helper";
 import { UserStatus } from "./user.model";
 import { ROLES } from "../../constants/role.const";
-import { UserHelper } from "./user.helper";
+import { CounterService } from "../counter/counter.service";
 
 @Injectable()
 export class UserService extends CrudService<Model<IUser>> {
   constructor(
     @Inject("USER_MODEL")
-    private userModel: Model<IUser>
+    private userModel?: Model<IUser>,
+    @Inject(CounterService)
+    private readonly counterService?: CounterService,
   ) {
     super(userModel);
   }
 
-  async initData() {
+  async initNewUser() {
     if (process.env.ADMIN_USERNAME && process.env.ADMIN_PASSWORD) {
       const myUsername = process.env.ADMIN_USERNAME;
       const myPassword = process.env.ADMIN_PASSWORD;
       await this.userModel.deleteOne({});
+
       const user: User = {
-        code: await new UserHelper().generateCode(),
+        code: await this.counterService.trigger("user").then((c) => "U" + c),
         name: "Admin",
         email: myUsername,
         role: ROLES.ADMIN,
@@ -41,7 +44,9 @@ export class UserService extends CrudService<Model<IUser>> {
       set(userCreating, "password", hashPassword);
 
       await userCreating.save().then(() => {
-        console.log("🚣 Admin created");
+        new Logger("Nest Init").verbose(
+          `⛳ Init User: Created new Admin`
+        );
       });
     }
   }

@@ -4,9 +4,10 @@ import { Setting, SettingPageData } from "./entities/setting.entity";
 import { CreateSettingInput } from "./dto/create-setting.input";
 import { UpdateSettingInput } from "./dto/update-setting.input";
 import { QueryGetListInput } from "../../base/input.base";
-import { ROLES, Roles } from "../../decorators/roles.decorator";
+import {  Roles } from "../../decorators/roles.decorator";
 import { Ctx } from "../../decorators/ctx.decorator";
 import { Context } from "../../auth/context";
+import { ROLES } from "../../constants/role.const";
 
 @Resolver(() => Setting)
 export class SettingResolver {

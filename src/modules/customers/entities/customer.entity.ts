@@ -46,9 +46,7 @@ export class Customer extends BaseSchema {
 
   addressIp?: string; // address
 
-  @Field(() => String, {
-    description: `Roles: ${Object.keys(CustomerStatus).join(",")}`,
-  })
+  @Field(() => String, { description: `Status: ${Object.keys(CustomerStatus).join(",")}`, })
   status?: CustomerStatus;
 }
 

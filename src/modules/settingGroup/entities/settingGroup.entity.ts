@@ -1,17 +1,24 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { BaseSchema, Pagination } from "../../../base/entity.base";
 import { BaseDocument } from "../../../base/model.base";
-import { SettingGroupStatus } from "../settingGroup.model";
 
 @ObjectType()
 export class SettingGroup extends BaseSchema {
+
+  @Field(() => String, { description: "Slug" })
+  slug?: string;
+
   @Field(() => String, { description: "Name" })
   name?: string;
 
-  @Field(() => String, {
-    description: `Roles: ${Object.keys(SettingGroupStatus).join(",")}`,
-  })
-  status?: SettingGroupStatus;
+  @Field(() => String, { description: "Desc" })
+  desc?: string;
+  
+  @Field(() => String, { description: "Icon" })
+  icon?: string;
+
+  @Field(() => String, { description: "Read only" })
+  readOnly?: boolean;
 }
 
 @ObjectType()

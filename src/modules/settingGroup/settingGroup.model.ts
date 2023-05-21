@@ -1,24 +1,20 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-export enum SettingGroupStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
-}
 
 export const SettingGroupModel = new Schema(
   {
-    name: { type: String },
-    status: {
-      type: String,
-      enum: SettingGroupStatus,
-      default: SettingGroupStatus.ACTIVE,
-    },
+    slug: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    desc: { type: String },
+    icon: { type: String },
+    readOnly: { type: Boolean, default: false },
   },
-  { timestamps: true }
+  { timestamps: true, collation: { locale: "vi" } }
 );
 
-SettingGroupModel.index({ name: "text" }, { weights: { name: 1 } });
+SettingGroupModel.index({ slug: 1 });
+SettingGroupModel.index({ name: "text", slug: "text" }, { weights: { name: 2, slug: 4 } });
 
 export const SettingGroupProviders = [
   {

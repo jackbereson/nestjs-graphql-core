@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ROLES } from "../../decorators/roles.decorator";
+import { ROLES } from "../../constants/role.const";
 const Schema = mongoose.Schema;
 
 export enum CustomerStatus {
