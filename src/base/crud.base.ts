@@ -2,9 +2,9 @@ import _ from "lodash";
 import { Document, Model } from "mongoose";
 import { BaseService } from "./service.base";
 import { Injectable } from "@nestjs/common";
-import { BaseErrorHelper } from "./error.base";
 import { IParseQuery } from "../helpers/parseQuery.helper";
 import { configs } from "../configs";
+import { ErrorHelper } from "../helpers/error.helper";
 export interface IQueryOptions {}
 
 @Injectable()
@@ -109,14 +109,14 @@ export abstract class CrudService<
     await this.model.updateOne({ _id: id }, data);
     let record = await this.model.findOne({ _id: id });
     if (!record)
-      throw BaseErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
+      throw ErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
     return record;
   }
 
   async remove(id: string) {
     let record = await this.model.findOne({ _id: id });
     if (!record)
-      throw BaseErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
+      throw ErrorHelper.recoredNotFound("Không tìm thấy dữ liệu");
     await record.deleteOne();
     return record;
   }

@@ -1,4 +1,4 @@
-import { BaseErrorHelper } from "../base/error.base";
+import { ErrorHelper } from "../helpers/error.helper";
 import { Context } from "./context";
 
 /**
@@ -18,12 +18,12 @@ export class AuthHelper {
    * TODOs : use in query - resolver funtion
    */
   static acceptRoles(context: Context, roles: String[]) {
-    if (!context.isAuth) throw BaseErrorHelper.unauthorized();
+    if (!context.isAuth) throw ErrorHelper.unauthorized();
     if (roles.indexOf(context.tokenData.role) !== -1) {
       return;
     } else {
-      if (context.isTokenExpired) throw BaseErrorHelper.tokenExpired();
-      throw BaseErrorHelper.permissionDeny();
+      if (context.isTokenExpired) throw ErrorHelper.tokenExpired();
+      throw ErrorHelper.permissionDeny();
     }
   }
 
@@ -36,11 +36,11 @@ export class AuthHelper {
   static checkValidAuth(context: Context, throwError = true) {
     if (context.isTokenExpired) {
       if (!throwError) return false;
-      throw BaseErrorHelper.tokenExpired();
+      throw ErrorHelper.tokenExpired();
     }
     if (!context.isAuth) {
       if (!throwError) return false;
-      throw BaseErrorHelper.unauthorized();
+      throw ErrorHelper.unauthorized();
     }
     return true;
   }
@@ -57,7 +57,7 @@ export class AuthHelper {
     if (!validAuth) return false;
     if (context.tokenData!._id.toString() != _id.toString()) {
       if (!throwError) return false;
-      throw BaseErrorHelper.permissionDeny();
+      throw ErrorHelper.permissionDeny();
     }
     return true;
   }

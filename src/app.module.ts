@@ -16,7 +16,7 @@ import { SettingModule } from "./modules/setting/setting.module";
 import { CounterModule } from "./modules/counter/counter.module";
 import { SettingGroupModule } from "./modules/settingGroup/settingGroup.module";
 import { ActivityModule } from "./modules/activity/activity.module";
-import { JobsModule } from "./schedulers/jobs.module";
+import { JobsModule } from "./jobs/jobs.module";
 
 @Module({
   imports: [
