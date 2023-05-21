@@ -6,7 +6,7 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { ConfigModule } from "@nestjs/config";
 import { CustomersModule } from "./modules/customers/customers.module";
-import { RolesProvider } from "./modules/guards/roles.provider";
+import { RolesProvider } from "./guards/roles.provider";
 import { JwtModule } from "@nestjs/jwt";
 import { GraphQLLoggingMiddleware } from "./middleware/logger.middleware";
 import { configs } from "./configs";
