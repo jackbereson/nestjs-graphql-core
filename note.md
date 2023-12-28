@@ -1,0 +1,1 @@
+npm i @nestjs/jwt @nestjs/common @nestjs/common @nestjs/apollo @apollo/server @nestjs/graphql
