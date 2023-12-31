@@ -5,7 +5,7 @@ import { Injectable } from "@nestjs/common";
 import { IParseQuery } from "../helpers/parseQuery.helper";
 import { configs } from "../configs";
 import { ErrorHelper } from "../helpers/error.helper";
-export interface IQueryOptions {}
+export interface IQueryOptions { }
 
 @Injectable()
 export abstract class CrudService<
@@ -87,6 +87,11 @@ export abstract class CrudService<
       query.skip(options.offset);
     }
     return await query.exec();
+  }
+
+
+  async findByIds(ids: string[]) {
+    return await this.model.find({ _id: { $in: ids } });
   }
 
   async findById(id: string) {

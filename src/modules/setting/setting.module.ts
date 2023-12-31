@@ -8,6 +8,12 @@ import { SettingGroupProviders } from "../settingGroup/settingGroup.model";
 
 @Module({
   imports: [DatabaseModule],
-  providers: [SettingResolver, SettingGroupService, ...SettingGroupProviders, SettingService, ...SettingProviders],
+  providers: [
+    SettingResolver,
+    SettingGroupService,
+    ...SettingGroupProviders,
+    SettingService,
+    ...SettingProviders
+  ],
 })
 export class SettingModule { }

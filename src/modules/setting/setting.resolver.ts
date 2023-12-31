@@ -18,7 +18,7 @@ export class SettingResolver {
     @Args("q") args: QueryGetListInput,
     @Ctx() context: Context
   ) {
-    context.auth([ROLES.ADMIN]);
+    // context.auth([ROLES.ADMIN]);
     return this.settingService.fetch(args);
   }
 

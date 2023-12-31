@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { GraphQLModule } from "@nestjs/graphql";
-
+import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default"
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 import { ConfigModule } from "@nestjs/config";
 import { CustomersModule } from "./modules/customers/customers.module";
@@ -24,7 +24,8 @@ import { JobsModule } from "./jobs/jobs.module";
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
-      playground: true,
+      playground: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
     JwtModule.register({
       global: true,
@@ -41,7 +42,11 @@ import { JobsModule } from "./jobs/jobs.module";
     EventErrorModule,
   ],
   controllers: [AppController],
-  providers: [AppService, RolesProvider, JobsModule],
+  providers: [
+    AppService, 
+    RolesProvider, 
+    JobsModule
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
