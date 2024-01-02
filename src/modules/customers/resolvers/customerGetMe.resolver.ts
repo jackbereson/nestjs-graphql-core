@@ -21,7 +21,7 @@ export class CustomerGetMeResolver {
       throw ErrorHelper.unauthorized();
     }
 
-    if (customer.status === CustomerStatus.DEACTIVED) {
+    if (customer.status === CustomerStatus.DEACTIVATED) {
       throw ErrorHelper.unauthorized();
     }
 

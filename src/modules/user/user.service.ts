@@ -32,7 +32,7 @@ export class UserService extends CrudService<Model<IUser>> {
         email: myUsername,
         role: ROLES.ADMIN,
         activedAt: new Date(),
-        status: UserStatus.ACTIVE,
+        status: UserStatus.ACTIVED,
       };
 
       const userCreating = new this.userModel(user);

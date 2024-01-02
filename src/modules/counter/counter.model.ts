@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 export enum CounterStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
+  ACTIVED = "ACTIVED",
+  DEACTIVATED = "DEACTIVATED",
 }
 
 export const CounterModel = new Schema(
@@ -13,7 +13,7 @@ export const CounterModel = new Schema(
     status: {
       type: String,
       enum: CounterStatus,
-      default: CounterStatus.ACTIVE,
+      default: CounterStatus.ACTIVED,
     },
   },
   { timestamps: true }

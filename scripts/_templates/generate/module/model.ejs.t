@@ -5,14 +5,14 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export enum <%= h.inflection.camelize(name) %>Status {
-    ACTIVE = "ACTIVE",
-    DEACTIVED = "DEACTIVED",
+    ACTIVED = "ACTIVED",
+    DEACTIVATED = "DEACTIVATED",
 }
 
 export const <%= h.inflection.camelize(name) %>Model = new Schema(
     {
         name: { type: String },
-        status: { type: String, enum: <%= h.inflection.camelize(name) %>Status, default: <%= h.inflection.camelize(name) %>Status.ACTIVE },
+        status: { type: String, enum: <%= h.inflection.camelize(name) %>Status, default: <%= h.inflection.camelize(name) %>Status.ACTIVED },
     },
     { timestamps: true }
 );

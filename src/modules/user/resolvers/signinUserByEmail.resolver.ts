@@ -24,8 +24,8 @@ export class SigninUserByEmailResolver {
       throw ErrorHelper.userNotExist();
     }
 
-    if (user.status === UserStatus.DEACTIVED) {
-      throw ErrorHelper.userError(". DEACTIVED!");
+    if (user.status === UserStatus.DEACTIVATED) {
+      throw ErrorHelper.userError(". Deactivated!");
     }
 
     const validPassword = comparePassword(password, user.id, user.password);

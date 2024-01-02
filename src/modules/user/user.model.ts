@@ -3,8 +3,8 @@ import { ROLES } from "../../constants/role.const";
 const Schema = mongoose.Schema;
 
 export enum UserStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
+  ACTIVED = "ACTIVED",
+  DEACTIVATED = "DEACTIVATED",
 }
 
 export const UserModel = new Schema(
@@ -18,7 +18,7 @@ export const UserModel = new Schema(
     avatar: { type: String },
     lastLoginAt: { type: Date },
     activedAt: { type: Date },
-    status: { type: String, enum: UserStatus, default: UserStatus.ACTIVE },
+    status: { type: String, enum: UserStatus, default: UserStatus.ACTIVED },
   },
   { timestamps: true }
 );

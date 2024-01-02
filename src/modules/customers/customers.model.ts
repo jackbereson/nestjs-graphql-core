@@ -3,8 +3,8 @@ import { ROLES } from "../../constants/role.const";
 const Schema = mongoose.Schema;
 
 export enum CustomerStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
+  ACTIVED = "ACTIVED",
+  DEACTIVATED = "DEACTIVATED",
 }
 
 export enum CustomerWalletTypes {
@@ -50,7 +50,7 @@ export const CustomerModel = new Schema(
     status: {
       type: String,
       enum: CustomerStatus,
-      default: CustomerStatus.ACTIVE,
+      default: CustomerStatus.ACTIVED,
     },
   },
   { timestamps: true }

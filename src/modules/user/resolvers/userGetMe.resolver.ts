@@ -20,8 +20,8 @@ export class UserGetMeResolver {
       throw ErrorHelper.userNotExist();
     }
 
-    if (data.status === UserStatus.DEACTIVED) {
-      throw ErrorHelper.userError(". DEACTIVED!");
+    if (data.status === UserStatus.DEACTIVATED) {
+      throw ErrorHelper.userError(". Deactivated!");
     }
 
     return data;

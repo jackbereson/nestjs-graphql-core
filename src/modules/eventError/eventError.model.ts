@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 export enum EventErrorStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
+  ACTIVED = "ACTIVED",
+  DEACTIVATED = "DEACTIVATED",
 }
 
 export const EventErrorModel = new Schema(
@@ -12,7 +12,7 @@ export const EventErrorModel = new Schema(
     status: {
       type: String,
       enum: EventErrorStatus,
-      default: EventErrorStatus.ACTIVE,
+      default: EventErrorStatus.ACTIVED,
     },
   },
   { timestamps: true }

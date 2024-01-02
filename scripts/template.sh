@@ -19,7 +19,7 @@ hygen generate module-db student \
 --fields "
 name: { type: String },
 age: { type: Number },
-status: { type: String, enum: UserStatus, default: UserStatus.ACTIVE },
+status: { type: String, enum: UserStatus, default: UserStatus.ACTIVED },
 parentRefId: { type: Schema.Types.ObjectId, ref: student },
 " \
 --enums "

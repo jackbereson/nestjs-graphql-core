@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 export enum ActivityStatus {
-  ACTIVE = "ACTIVE",
-  DEACTIVED = "DEACTIVED",
+  ACTIVED = "ACTIVED",
+  DEACTIVATED = "DEACTIVATED",
 }
 
 export const ActivityModel = new Schema(
@@ -12,7 +12,7 @@ export const ActivityModel = new Schema(
     status: {
       type: String,
       enum: ActivityStatus,
-      default: ActivityStatus.ACTIVE,
+      default: ActivityStatus.ACTIVED,
     },
   },
   { timestamps: true }

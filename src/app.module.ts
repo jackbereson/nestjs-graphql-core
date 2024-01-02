@@ -25,14 +25,14 @@ import { JobsModule } from "./jobs/jobs.module";
       driver: ApolloDriver,
       autoSchemaFile: true,
       playground: false,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      plugins: [ApolloServerPluginLandingPageLocalDefault()]
     }),
     JwtModule.register({
       global: true,
       secret: configs.secretKey,
       signOptions: { expiresIn: configs.expiresIn },
     }),
-    // JobsModule,
+    JobsModule,
     ActivityModule,
     CounterModule,
     SettingGroupModule,
@@ -43,8 +43,8 @@ import { JobsModule } from "./jobs/jobs.module";
   ],
   controllers: [AppController],
   providers: [
-    AppService, 
-    RolesProvider, 
+    AppService,
+    RolesProvider,
     JobsModule
   ],
 })
