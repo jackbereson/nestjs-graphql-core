@@ -1,23 +1,9 @@
-import { Workbook } from "exceljs";
+
 import { Response } from "express";
-import fs from "fs";
 import _ from "lodash";
-import path from "path";
 
 export class UtilsHelper {
   constructor() {}
-  static responseExcel(res: Response, workBook: Workbook, filename = "baocao") {
-    res.status(200);
-    res.setHeader(
-      "Content-type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    );
-    res.setHeader(
-      "Content-disposition",
-      `attachment; filename=${filename.replace(/\ /g, "-")}.xlsx`
-    );
-    workBook.xlsx.write(res).then(res.end);
-  }
 
   static parsePhone(phone: string, pre: string) {
     if (!phone) return phone;

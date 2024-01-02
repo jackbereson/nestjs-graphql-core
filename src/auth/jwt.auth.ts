@@ -1,9 +1,6 @@
 import { JwtService } from "@nestjs/jwt";
-import * as dotenv from "dotenv";
 import { configs } from "../configs";
 import { ROLES } from "../constants/role.const";
-
-dotenv.config();
 
 export interface IPayloadToken {
   role: string;
